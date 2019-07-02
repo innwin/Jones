@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Authors>innwin</Authors>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Description>AutoMapper auxiliary library</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+      <PackageReference Include="Jones" Version="1.0.0" />
+    </ItemGroup>
+
+</Project>
