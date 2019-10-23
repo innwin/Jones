@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Jones.Extensions
 {
     public static class StringExtensions
     {
-        public static bool IsNullOrEmpty(this string source)
+        public static bool IsNullOrEmpty([NotNullWhen(false)] this string? source)
         {
             return string.IsNullOrEmpty(source);
         }
@@ -16,7 +17,7 @@ namespace Jones.Extensions
         /// </summary>   
         /// <param name="source">字符串</param>   
         /// <returns>返回字符串长度</returns>   
-        public static int GetLength(this string source)
+        public static int GetLength(this string? source)
         {
             if (source.IsNullOrEmpty()) { return 0; }
             var l = source.Length;
@@ -33,7 +34,7 @@ namespace Jones.Extensions
             return realLen;
         }
         
-        public static IEnumerable<string> ToEnumerable(this string source, int stepSize)
+        public static IEnumerable<string>? ToEnumerable(this string? source, int stepSize)
         {
             if (source.IsNullOrEmpty())
             {

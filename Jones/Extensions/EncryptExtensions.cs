@@ -6,7 +6,7 @@ namespace Jones.Extensions
 {
     public static class EncryptExtensions
     {
-        public static string Md5(this string source)
+        public static string? Md5(this string? source)
         {
             return source.IsNullOrEmpty() 
                 ? null 
