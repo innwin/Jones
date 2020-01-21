@@ -11,6 +11,10 @@ namespace Jones.Extensions
         {
             return string.IsNullOrEmpty(source);
         }
+        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? source)
+        {
+            return string.IsNullOrWhiteSpace(source);
+        }
         
         /// <summary>   
         /// 得到字符串的长度，一个汉字算2个字符   

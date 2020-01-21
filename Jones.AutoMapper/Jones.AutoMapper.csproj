@@ -7,10 +7,11 @@
         <Description>AutoMapper auxiliary library</Description>
         <LangVersion>8</LangVersion>
         <Nullable>enable</Nullable>
+        <PackageVersion>7.0.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
       <PackageReference Include="Jones" Version="1.0.0" />
     </ItemGroup>
 

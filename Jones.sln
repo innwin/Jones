@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.AutoMapper", "Jones.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.DependencyInjection", "Jones.DependencyInjection\Jones.DependencyInjection.csproj", "{1A585AE4-425B-4505-A27D-6CD769FAC93E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.Json", "Jones.Json\Jones.Json.csproj", "{8CB39442-586E-4214-9949-6F1C7CE53ADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{1A585AE4-425B-4505-A27D-6CD769FAC93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A585AE4-425B-4505-A27D-6CD769FAC93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A585AE4-425B-4505-A27D-6CD769FAC93E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CB39442-586E-4214-9949-6F1C7CE53ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CB39442-586E-4214-9949-6F1C7CE53ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CB39442-586E-4214-9949-6F1C7CE53ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CB39442-586E-4214-9949-6F1C7CE53ADB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

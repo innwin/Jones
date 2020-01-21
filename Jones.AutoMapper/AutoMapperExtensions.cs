@@ -1,12 +1,20 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Jones.AutoMapper
 {
     public static class AutoMapperExtensions
     {
-        public static T ToDto<T>(this IModel model) where T : IDto
+        public static IServiceCollection AddJonesAutoMapper(this IServiceCollection services)
         {
-            return Mapper.Map<T>(model);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            return services;
+        }
+        
+        public static T ToDto<T>(this IModel model, IMapper mapper) where T : IDto
+        {
+            return mapper.Map<T>(model);
         }
     }
 }
