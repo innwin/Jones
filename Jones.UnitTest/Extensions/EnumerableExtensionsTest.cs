@@ -14,6 +14,7 @@ namespace Jones.UnitTest.Extensions
             Console.WriteLine(intString);
             Assert.AreEqual(intString, "1,2");
             var stringString = new [] { "1", "2"}.ToString(",");
+            Console.WriteLine(stringString);
             Assert.AreEqual(stringString, "1,2");
         }
     }
