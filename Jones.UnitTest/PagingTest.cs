@@ -13,7 +13,7 @@ namespace Jones.UnitTest
         [Test]
         public void TestPaging()
         {
-            var paging = new Paging<string>(null, 2, 10, 21);
+            var paging = new Paging<string>(null, 2, 10, 26);
             Console.WriteLine($"TotalPages: {paging.TotalPages}");
             Console.WriteLine($"NextPage: {paging.NextPage}");
             Console.WriteLine($"PreviousPage: {paging.PreviousPage}");

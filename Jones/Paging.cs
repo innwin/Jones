@@ -2,7 +2,7 @@ namespace Jones
 {
     public class PagingParams
     {
-        public int CurrentPage { get; set; }
+        public int Page { get; set; }
         public int? PageSize { get; set; }
 
         public PagingParams()
@@ -10,43 +10,39 @@ namespace Jones
             
         }
 
-        public PagingParams(int currentPage, int? pageSize)
+        public PagingParams(int page, int? pageSize)
         {
-            CurrentPage = currentPage;
+            Page = page;
             PageSize = pageSize;
         }
     }
     
-    public class PagingParams<TP, TK>
+    public class PagingParams<TK, TP>
     {
-        public TP Params { get; set; }
-        public TK NextPage { get; set; }
+        public TK Page { get; set; }
         public int? PageSize { get; set; }
-        public TK PreviousPage { get; set; }
-        public bool? IsLoadPrevious { get; set; }
+        public TP Params { get; set; }
 
         public PagingParams()
         {
             
         }
 
-        public PagingParams(TP @params, TK nextPage, int? pageSize, TK previousPage = default, bool? isLoadPrevious = null)
+        public PagingParams(TK page, int? pageSize, TP @params)
         {
             Params = @params;
-            NextPage = nextPage;
+            Page = page;
             PageSize = pageSize;
-            PreviousPage = previousPage;
-            IsLoadPrevious = isLoadPrevious;
         }
     }
 
-    public class PagingParams<TP> : PagingParams<TP, int?>
+    public class PagingParams<TP> : PagingParams<int, TP>
     {
         public PagingParams()
         {
             
         }
-        public PagingParams(TP @params, int? nextPage, int? pageSize, int? previousPage = null, bool? isLoadPrevious = null) : base(@params, nextPage, pageSize, previousPage, isLoadPrevious)
+        public PagingParams(int page, int? pageSize, TP @params) : base(page, pageSize, @params)
         {
         }
     }
@@ -57,18 +53,19 @@ namespace Jones
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
         public int TotalPages { get; set; }
+        public string EmptyTips { get; set; }
 
         public Paging()
         {
-            
         }
 
-        public Paging(int page, int pageSize, int totalCount)
+        public Paging(int page, int pageSize, int totalCount, string emptyTips = null)
         {
             Page = page;
             PageSize = pageSize;
             TotalCount = totalCount;
-            
+            EmptyTips = emptyTips;
+
             if (PageSize > 0)
             {
                 TotalPages = TotalCount / PageSize;
@@ -80,34 +77,35 @@ namespace Jones
         }
     }
 
-    public class Paging<T, TK> : Paging
+    public class Paging<TK, T> : Paging
     {
-        public T[]? Items { get; set; }
         public TK NextPage { get; set; }
         public TK PreviousPage { get; set; }
+        public T[]? Items { get; set; }
 
         public Paging()
         {
             
         }
 
-        public Paging(T[]? items, TK nextPage, TK previousPage, int page, int pageSize, int totalCount) : base(page, pageSize, totalCount)
+        public Paging(TK nextPage, TK previousPage, T[]? items, int page, int pageSize, int totalCount, string emptyTips = null) : 
+            base(page, pageSize, totalCount, emptyTips)
         {
-            Items = items;
             NextPage = nextPage;
             PreviousPage = previousPage;
+            Items = items;
         }
     }
 
-    public class Paging<T> : Paging<T, int?>
+    public class Paging<T> : Paging<int?, T>
     {
         public Paging()
         {
             
         }
         
-        public Paging(T[]? items, int page, int pageSize, int totalCount) : 
-            base(items, null, null, page, pageSize, totalCount)
+        public Paging(T[]? items, int page, int pageSize, int totalCount, string emptyTips = null) : 
+            base(null, null, items, page, pageSize, totalCount, emptyTips)
         {
             NextPage = page == TotalPages ? null : (int?) (page + 1);
             PreviousPage = page == 1 || TotalPages == 1 ? null : (int?) (page - 1);
