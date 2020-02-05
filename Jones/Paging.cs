@@ -1,5 +1,22 @@
 namespace Jones
 {
+    public class PagingParams
+    {
+        public int CurrentPage { get; set; }
+        public int? PageSize { get; set; }
+
+        public PagingParams()
+        {
+            
+        }
+
+        public PagingParams(int currentPage, int? pageSize)
+        {
+            CurrentPage = currentPage;
+            PageSize = pageSize;
+        }
+    }
+    
     public class PagingParams<TP, TK>
     {
         public TP Params { get; set; }
