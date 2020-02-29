@@ -1,48 +1,29 @@
 namespace Jones
 {
-    public class PagingParams
-    {
-        public int? Page { get; set; }
-        public int? PageSize { get; set; }
-
-        public PagingParams()
-        {
-            
-        }
-
-        public PagingParams(int? page, int? pageSize = null)
-        {
-            Page = page;
-            PageSize = pageSize;
-        }
-    }
-    
-    public class PagingParams<TK, TP>
+    public class PagingParams<TK>
     {
         public TK Page { get; set; }
         public int? PageSize { get; set; }
-        public TP Params { get; set; }
 
         public PagingParams()
         {
             
         }
 
-        public PagingParams(TK page, int? pageSize, TP @params)
+        public PagingParams(TK page, int? pageSize)
         {
-            Params = @params;
             Page = page;
             PageSize = pageSize;
         }
     }
 
-    public class PagingParams<TP> : PagingParams<int?, TP>
+    public class PagingParams : PagingParams<int?>
     {
         public PagingParams()
         {
             
         }
-        public PagingParams(int? page, int? pageSize, TP @params) : base(page, pageSize, @params)
+        public PagingParams(int? page, int? pageSize) : base(page, pageSize)
         {
         }
     }
