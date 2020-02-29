@@ -2,7 +2,7 @@ namespace Jones
 {
     public class PagingParams
     {
-        public int Page { get; set; }
+        public int? Page { get; set; }
         public int? PageSize { get; set; }
 
         public PagingParams()
@@ -10,7 +10,7 @@ namespace Jones
             
         }
 
-        public PagingParams(int page, int? pageSize)
+        public PagingParams(int? page, int? pageSize = null)
         {
             Page = page;
             PageSize = pageSize;
@@ -36,13 +36,13 @@ namespace Jones
         }
     }
 
-    public class PagingParams<TP> : PagingParams<int, TP>
+    public class PagingParams<TP> : PagingParams<int?, TP>
     {
         public PagingParams()
         {
             
         }
-        public PagingParams(int page, int? pageSize, TP @params) : base(page, pageSize, @params)
+        public PagingParams(int? page, int? pageSize, TP @params) : base(page, pageSize, @params)
         {
         }
     }
