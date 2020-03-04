@@ -20,6 +20,14 @@ namespace Jones.UnitTest
             Assert.AreEqual(paging.TotalPages, 3);
             Assert.AreEqual(paging.NextPage, 3);
             Assert.AreEqual(paging.PreviousPage, 1);
+            
+            paging = new Paging<string>(null, 1, 10, 0);
+            Console.WriteLine($"TotalPages: {paging.TotalPages}");
+            Console.WriteLine($"NextPage: {paging.NextPage}");
+            Console.WriteLine($"PreviousPage: {paging.PreviousPage}");
+            Assert.AreEqual(paging.TotalPages, 0);
+            Assert.AreEqual(paging.NextPage, null);
+            Assert.AreEqual(paging.PreviousPage, null);
         }
     }
 }

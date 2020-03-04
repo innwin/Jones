@@ -88,8 +88,8 @@ namespace Jones
         public Paging(T[]? items, int page, int pageSize, int totalCount, string emptyTips = null) : 
             base(null, null, items, page, pageSize, totalCount, emptyTips)
         {
-            NextPage = page == TotalPages ? null : (int?) (page + 1);
-            PreviousPage = page == 1 || TotalPages == 1 ? null : (int?) (page - 1);
+            NextPage = page >= TotalPages ? null : (int?) (page + 1);
+            PreviousPage = page == 1 || TotalPages <= 1 ? null : (int?) (page - 1);
         }
     }
 }
