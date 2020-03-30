@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.Json", "Jones.Json\Jo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.EntityFrameworkCore", "Jones.EntityFrameworkCore\Jones.EntityFrameworkCore.csproj", "{92022A2E-A79D-4671-9793-47FB7CA0F8CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.EventBus", "Jones.EventBus\Jones.EventBus.csproj", "{03B47AA4-7317-4425-A7BB-814D4E06D91C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.EventBus.Redis", "Jones.EventBus.Redis\Jones.EventBus.Redis.csproj", "{522AE478-E0BB-447C-B86B-8DDDCE8318A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{92022A2E-A79D-4671-9793-47FB7CA0F8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92022A2E-A79D-4671-9793-47FB7CA0F8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92022A2E-A79D-4671-9793-47FB7CA0F8CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B47AA4-7317-4425-A7BB-814D4E06D91C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B47AA4-7317-4425-A7BB-814D4E06D91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B47AA4-7317-4425-A7BB-814D4E06D91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B47AA4-7317-4425-A7BB-814D4E06D91C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{522AE478-E0BB-447C-B86B-8DDDCE8318A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{522AE478-E0BB-447C-B86B-8DDDCE8318A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{522AE478-E0BB-447C-B86B-8DDDCE8318A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{522AE478-E0BB-447C-B86B-8DDDCE8318A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
