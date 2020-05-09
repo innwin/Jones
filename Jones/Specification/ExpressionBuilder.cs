@@ -36,7 +36,7 @@ namespace Jones.Specification
         /// <returns>New AND expression</returns>
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
         {
-            return first.Compose(second, Expression.And);
+            return first.Compose(second, Expression.AndAlso);
         }
         /// <summary>
         /// Or operator
@@ -47,7 +47,7 @@ namespace Jones.Specification
         /// <returns>New Or expressions</returns>
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
         {
-            return first.Compose(second, Expression.Or);
+            return first.Compose(second, Expression.OrElse);
         }
 
     }
