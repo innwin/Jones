@@ -1,8 +1,8 @@
 namespace Jones
 {
-    public class PagingParams<TK>
+    public class PagingParams<Tk>
     {
-        public TK Page { get; set; }
+        public Tk Page { get; set; }
         public int? PageSize { get; set; }
 
         public PagingParams()
@@ -10,7 +10,7 @@ namespace Jones
             
         }
 
-        public PagingParams(TK page, int? pageSize)
+        public PagingParams(Tk page, int? pageSize)
         {
             Page = page;
             PageSize = pageSize;
@@ -34,13 +34,13 @@ namespace Jones
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
         public int TotalPages { get; set; }
-        public string EmptyTips { get; set; }
+        public string? EmptyTips { get; set; }
 
         public Paging()
         {
         }
 
-        public Paging(int page, int pageSize, int totalCount, string emptyTips = null)
+        public Paging(int page, int pageSize, int totalCount, string? emptyTips = null)
         {
             Page = page;
             PageSize = pageSize;
@@ -69,7 +69,7 @@ namespace Jones
             
         }
 
-        public Paging(TK nextPage, TK previousPage, T[]? items, int page, int pageSize, int totalCount, string emptyTips = null) : 
+        public Paging(TK nextPage, TK previousPage, T[]? items, int page, int pageSize, int totalCount, string? emptyTips = null) : 
             base(page, pageSize, totalCount, emptyTips)
         {
             NextPage = nextPage;
@@ -85,7 +85,7 @@ namespace Jones
             
         }
         
-        public Paging(T[]? items, int page, int pageSize, int totalCount, string emptyTips = null) : 
+        public Paging(T[]? items, int page, int pageSize, int totalCount, string? emptyTips = null) : 
             base(null, null, items, page, pageSize, totalCount, emptyTips)
         {
             NextPage = page >= TotalPages ? null : (int?) (page + 1);
