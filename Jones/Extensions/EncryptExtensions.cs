@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -6,6 +7,7 @@ namespace Jones.Extensions
 {
     public static class EncryptExtensions
     {
+        [return: NotNullIfNotNull("source")]
         public static string? Md5(this string? source)
         {
             return source.IsNullOrEmpty() 
