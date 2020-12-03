@@ -13,6 +13,7 @@ namespace Jones.UnitTest.Extensions
         [Test]
         public void TestGetDescription()
         {
+            Assert.AreEqual(MyEnum.HaHa.GetDescription(), "哈哈");
             Assert.AreEqual(MyEnum.XiXi.GetDescription(), "嘻嘻");
         }
 

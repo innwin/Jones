@@ -38,14 +38,8 @@ namespace Jones.Extensions
             return realLen;
         }
         
-        [return: NotNullIfNotNull("source")]
-        public static IEnumerable<string>? ToEnumerable(this string? source, int stepSize)
+        public static IEnumerable<string> ToEnumerable(this string source, int stepSize)
         {
-            if (source.IsNullOrEmpty())
-            {
-                return null;
-            }
-
             if (stepSize == 1)
             {
                 return source.ToArray().Select(p => p.ToString());

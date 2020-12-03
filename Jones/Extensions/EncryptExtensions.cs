@@ -1,5 +1,5 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -8,13 +8,12 @@ namespace Jones.Extensions
     public static class EncryptExtensions
     {
         [return: NotNullIfNotNull("source")]
-        public static string? Md5(this string? source)
+        public static string Md5(this string source)
         {
-            return source.IsNullOrEmpty() 
-                ? null 
-                : new MD5CryptoServiceProvider()
-                    .ComputeHash(Encoding.UTF8.GetBytes(source))
-                    .Aggregate<byte, string>(null, (current, b) => current + b.ToString("X2")).ToLower();
+            using var md5 = MD5.Create();
+            var result = md5.ComputeHash(Encoding.ASCII.GetBytes(source));
+            var strResult = BitConverter.ToString(result);
+            return strResult.Replace("-", "").ToLower();
         }
     }
 }

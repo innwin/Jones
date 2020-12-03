@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Jones.Specification
@@ -20,7 +21,7 @@ namespace Jones.Specification
         /// <param name="map">Map specification</param>
         public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
         {
-            _map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
+            _map = map;
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace Jones.Specification
         /// <returns>Expression with parameters replaced</returns>
         public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map, Expression exp)
         {
-            return new ParameterRebinder(map).Visit(exp);
+            return new ParameterRebinder(map).Visit(exp) ?? throw new ArgumentNullException(nameof(exp));
         }
         /// <inheritdoc />
         /// <summary>

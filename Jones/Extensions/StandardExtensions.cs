@@ -12,7 +12,7 @@ namespace Jones.Extensions
         }
         
         // Kotlin: fun <T, R> T.let(block: (T) -> R): R
-        public static TR Let<T, TR>(this T self, Func<T, TR> block) 
+        public static Tr Let<T, Tr>(this T self, Func<T, Tr> block) 
         {
             return block(self);
         }

@@ -8,11 +8,9 @@ namespace Jones.Extensions
         /// <param name="url">url链接</param>
         /// <param name="baseUrl"></param>
         /// <returns></returns>
-        public static System.Collections.Specialized.NameValueCollection? ParseUrl(this string? url, out string? baseUrl)
+        public static System.Collections.Specialized.NameValueCollection? ParseUrl(this string url, out string baseUrl)
         {
             baseUrl = "";
-            if (string.IsNullOrEmpty(url))
-                return null;
             var nvc = new System.Collections.Specialized.NameValueCollection();
 
             try

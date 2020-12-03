@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -13,10 +12,7 @@ namespace Jones.Extensions
         }
 
         [return: NotNullIfNotNull("source")]
-        public static string? ToString<T>(this IEnumerable<T>? source, string separator) => 
-            source == null 
-                ? null 
-                : string.Join(separator, source);
+        public static string ToString<T>(this IEnumerable<T> source, string separator) => string.Join(separator, source);
             // source?.AsParallel().Select(p => p?.ToString() ?? string.Empty).Aggregate((total, next) => $"{total}{separated}{next}");
     }
 }
