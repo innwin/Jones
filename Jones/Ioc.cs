@@ -2,6 +2,7 @@
 
 namespace Jones
 {
+    [Obsolete("请使用系统内置的依赖注入")]
     public class Ioc
     {
         private static IServiceProvider? _serviceProvider;
