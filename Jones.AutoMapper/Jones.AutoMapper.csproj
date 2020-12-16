@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
         <Authors>innwin</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>AutoMapper auxiliary library</Description>
-        <LangVersion>8</LangVersion>
+        <LangVersion>9</LangVersion>
         <Nullable>enable</Nullable>
         <PackageVersion>8.0.1</PackageVersion>
         <RepositoryUrl>https://github.com/innwin/Jones</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
-      <PackageReference Include="Jones" Version="1.0.0" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+      <PackageReference Include="Jones" Version="2.0.0" />
     </ItemGroup>
 
 </Project>
