@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -7,7 +6,6 @@ namespace Jones.Extensions
 {
     public static class EncryptExtensions
     {
-        [return: NotNullIfNotNull("source")]
         public static string Md5(this string source)
         {
             using var md5 = MD5.Create();

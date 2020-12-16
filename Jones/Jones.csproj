@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <LangVersion>8</LangVersion>
+        <LangVersion>9</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>CSharp base library</Description>
         <Authors>innwin</Authors>
         <Nullable>enable</Nullable>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <PackageVersion>1.3.4</PackageVersion>
+        <TargetFramework>net5.0</TargetFramework>
+        <PackageVersion>2.0.0</PackageVersion>
         <RepositoryUrl>https://github.com/innwin/Jones</RepositoryUrl>
     </PropertyGroup>
 

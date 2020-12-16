@@ -1,26 +1,26 @@
 ﻿namespace Jones.Dto
 {
-    public class IdDto<T>
+    public record IdDto<T>
     {
-        public T Id { get; set; }
+        public T Id { get; }
 
-//        public IdDto(T id)
-//        {
-//            Id = id;
-//        }
+        public IdDto(T id)
+        {
+            Id = id;
+        }
     }
     
-    public class IdDto : IdDto<int>
+    public record IdDto : IdDto<int>
     {
-//        public IdDto(int id) : base(id)
-//        {
-//        }
+        public IdDto(int id) : base(id)
+        {
+        }
     }
 
-    public class IdStringDto : IdDto<string>
+    public record IdStringDto : IdDto<string>
     {
-//        public IdStringDto(string id) : base(id)
-//        {
-//        }
+        public IdStringDto(string id) : base(id)
+        {
+        }
     }
 }

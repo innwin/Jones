@@ -28,7 +28,7 @@ namespace Jones.Specification
         {
 
             if (originalSpecification == null)
-                throw new ArgumentNullException("originalSpecification");
+                throw new ArgumentNullException(nameof(originalSpecification));
 
             _originalCriteria = originalSpecification.SatisfiedBy();
         }
@@ -39,7 +39,7 @@ namespace Jones.Specification
         /// <param name="originalSpecification">Original specificaiton</param>
         public NotSpecification(Expression<Func<TEntity,bool>> originalSpecification)
         {
-            _originalCriteria = originalSpecification ?? throw new ArgumentNullException("originalSpecification");
+            _originalCriteria = originalSpecification ?? throw new ArgumentNullException(nameof(originalSpecification));
         }
 
         #endregion

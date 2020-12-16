@@ -1,14 +1,9 @@
 namespace Jones
 {
-    public class PagingParams<Tk>
+    public record PagingParams<Tk>
     {
-        public Tk Page { get; set; }
-        public int? PageSize { get; set; }
-
-        public PagingParams()
-        {
-            
-        }
+        public Tk Page { get; }
+        public int? PageSize { get; }
 
         public PagingParams(Tk page, int? pageSize)
         {
@@ -17,12 +12,8 @@ namespace Jones
         }
     }
 
-    public class PagingParams : PagingParams<int?>
+    public record PagingParams : PagingParams<int?>
     {
-        public PagingParams()
-        {
-            
-        }
         public PagingParams(int? page, int? pageSize) : base(page, pageSize)
         {
         }
@@ -30,15 +21,11 @@ namespace Jones
     
     public class Paging
     {
-        public int Page { get; set; }
-        public int PageSize { get; set; }
-        public int TotalCount { get; set; }
-        public int TotalPages { get; set; }
-        public string? EmptyTips { get; set; }
-
-        public Paging()
-        {
-        }
+        public int Page { get; }
+        public int PageSize { get; }
+        public int TotalCount { get; }
+        public int TotalPages { get; }
+        public string? EmptyTips { get; }
 
         public Paging(int page, int pageSize, int totalCount, string? emptyTips = null)
         {
@@ -58,38 +45,49 @@ namespace Jones
         }
     }
 
-    public class Paging<TK, T> : Paging
+    public record Paging<Tk, T>
     {
-        public TK NextPage { get; set; }
-        public TK PreviousPage { get; set; }
-        public T[]? Items { get; set; }
+        public Tk Page { get; }
+        
+        public Tk? NextPage { get; }
+        public Tk? PreviousPage { get; }
+        public T[]? Items { get; }
+        public int PageSize { get; }
+        public int TotalCount { get; }
+        public int TotalPages { get; }
+        public string? EmptyTips { get; }
 
-        public Paging()
+        public Paging(Tk page, Tk? nextPage, Tk? previousPage, T[]? items, int pageSize, int totalCount, string? emptyTips)
         {
-            
-        }
-
-        public Paging(TK nextPage, TK previousPage, T[]? items, int page, int pageSize, int totalCount, string? emptyTips = null) : 
-            base(page, pageSize, totalCount, emptyTips)
-        {
+            Page = page;
             NextPage = nextPage;
             PreviousPage = previousPage;
             Items = items;
+            PageSize = pageSize;
+            TotalCount = totalCount;
+            EmptyTips = emptyTips;
+            
+            if (PageSize > 0)
+            {
+                TotalPages = TotalCount / PageSize;
+                if (TotalCount % PageSize > 0)
+                {
+                    TotalPages += 1;
+                }
+            }
         }
     }
 
-    public class Paging<T> : Paging<int?, T>
+    public class Paging<T> : Paging
     {
-        public Paging()
-        {
-            
-        }
+        public int? NextPage => Page >= TotalPages ? null : (int?) (Page + 1);
+        public int? PreviousPage => Page == 1 || TotalPages <= 1 ? null : (int?) (Page - 1);
         
-        public Paging(T[]? items, int page, int pageSize, int totalCount, string? emptyTips = null) : 
-            base(null, null, items, page, pageSize, totalCount, emptyTips)
+        public T[]? Items { get; }
+
+        public Paging(T[]? items, int page, int pageSize, int totalCount, string? emptyTips = null) : base(page, pageSize, totalCount, emptyTips)
         {
-            NextPage = page >= TotalPages ? null : (int?) (page + 1);
-            PreviousPage = page == 1 || TotalPages <= 1 ? null : (int?) (page - 1);
+            Items = items;
         }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -8,12 +7,11 @@ namespace Jones.Extensions
 {
     public static class EnumExtensions
     {
-        [return: MaybeNull]
-        public static T GetAttribute<T>(this Enum enumSubItem) where T : Attribute
+        public static T? GetAttribute<T>(this Enum enumSubItem) where T : Attribute
         {
             return enumSubItem
                 .GetType()
-                .GetField(enumSubItem.ToString())
+                .GetField(enumSubItem.ToString())?
                 .GetCustomAttributes(typeof(T), false)
                 .Cast<T>()
                 .FirstOrDefault();
@@ -29,8 +27,7 @@ namespace Jones.Extensions
             return enumSubItem.GetAttribute<CategoryAttribute>()?.Category;
         }
         
-        [return: MaybeNull]
-        public static T GetEnumAttribute<T>(this Enum enumSubItem) where T : Attribute
+        public static T? GetEnumAttribute<T>(this Enum enumSubItem) where T : Attribute
         {
             return enumSubItem
                 .GetType()
