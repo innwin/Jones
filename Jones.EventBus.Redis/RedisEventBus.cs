@@ -29,11 +29,11 @@ namespace Jones.EventBus.Redis
 
         public IObservable<TEvent> Of<TEvent>() where TEvent : IEvent =>
             _subscriber.WhenMessageReceived(GetChannel<TEvent>())
-                .Select(message => JsonSerializer.Deserialize<TEvent>(message, JsonOptions));
+                .Select(message => JsonSerializer.Deserialize<TEvent>(message, JsonOptions))!;
         
         public static string GetChannel<TEvent>()
         {
-            return typeof(TEvent).FullName;
+            return typeof(TEvent).FullName ?? throw new ArgumentNullException($"{nameof(TEvent)}.FullName");
         }
     }
 }

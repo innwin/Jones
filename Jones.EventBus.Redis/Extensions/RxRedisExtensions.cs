@@ -9,7 +9,7 @@ namespace Jones.EventBus.Redis.Extensions
     {
         public static IObservable<RedisValue> WhenMessageReceived(this ISubscriber subscriber, RedisChannel channel)
         {
-            return Observable.Create<RedisValue>(async (obs, ct) =>
+            return Observable.Create<RedisValue>(async (obs, _) =>
             {
                 await subscriber.SubscribeAsync(channel, (_, message) =>
                 {
