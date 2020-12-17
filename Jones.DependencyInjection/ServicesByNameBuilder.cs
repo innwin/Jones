@@ -25,9 +25,9 @@ namespace Jones.DependencyInjection
         /// Note that this implementation has to be also registered in IoC container so
         /// that <see cref="IServiceByNameFactory&lt;TService&gt;"/> is be able to resolve it.
         /// </summary>
-        public ServicesByNameBuilder<TService> Add(string name, Type implemtnationType)
+        public ServicesByNameBuilder<TService> Add(string name, Type implementationType)
         {
-            _registrations.Add(name, implemtnationType);
+            _registrations.Add(name, implementationType);
             return this;
         }
 
