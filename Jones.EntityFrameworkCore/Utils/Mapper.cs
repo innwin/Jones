@@ -9,19 +9,13 @@ namespace Jones.EntityFrameworkCore.Utils
     // danke schoen https://codereview.stackexchange.com/a/98736
     public class DataReaderMapper<T>
     {
-        Dictionary<int, Either<FieldInfo, PropertyInfo>> mappings;
-        bool IsPrimitiveish;
+        private readonly Dictionary<int, Either<FieldInfo, PropertyInfo>> _mappings;
+        private readonly bool _isPrimitive;
         public DataReaderMapper(IDataReader reader)
         {
-            Type U = Nullable.GetUnderlyingType(typeof(T));
-            this.IsPrimitiveish = (
-                typeof(T).IsPrimitive ||
-                (U != null && U.IsPrimitive)
-            );
-            if (!this.IsPrimitiveish)
-            {
-                this.mappings = Mappings(reader);
-            }
+            var u = Nullable.GetUnderlyingType(typeof(T));
+            _isPrimitive = typeof(T).IsPrimitive || u != null && u.IsPrimitive;
+            _mappings = !_isPrimitive ? Mappings(reader) : new Dictionary<int, Either<FieldInfo, PropertyInfo>>();
         }
 
         public class MapMismatchException : Exception
@@ -29,30 +23,37 @@ namespace Jones.EntityFrameworkCore.Utils
             public MapMismatchException(string arg) : base(arg) { }
         }
 
-        private class JoinInfo
+        private record JoinInfo
         {
-            public Either<FieldInfo, PropertyInfo> info;
-            public String name;
+            public Either<FieldInfo, PropertyInfo> Info { get; }
+            public string Name { get; }
+            
+            public JoinInfo(Either<FieldInfo, PropertyInfo> info, string name)
+            {
+                Info = info;
+                Name = name;
+            }
         }
         // int keys are column indices (ordinals)
         static Dictionary<int, Either<FieldInfo, PropertyInfo>> Mappings(IDataReader reader)
         {
-            var columns = Enumerable.Range(0, reader.FieldCount);
+            var columns = Enumerable.Range(0, reader.FieldCount).ToArray();
             var fieldsAndProps = typeof(T).FieldsAndProps()
                 .Select(fp => fp.Match(
-                    f => new JoinInfo { info = f, name = f.Name },
-                    p => new JoinInfo { info = p, name = p.Name }
-                ));
+                    f => new JoinInfo(f, f.Name),
+                    p => new JoinInfo(p, p.Name)
+                ))
+                .ToArray();
             var joined = columns
-                  .Join(fieldsAndProps, reader.GetName, x => x.name, (index, x) => new
+                  .Join(fieldsAndProps, reader.GetName, x => x.Name, (index, x) => new
                   {
                       index,
-                      x.info
+                      info = x.Info
                   }, StringComparer.InvariantCultureIgnoreCase).ToList();
-            if (columns.Count() != joined.Count() || fieldsAndProps.Count() != joined.Count())
+            if (columns.Length != joined.Count || fieldsAndProps.Count() != joined.Count)
             {
                 throw new MapMismatchException($"Expected to map every column in the result. " +
-                    $"Instead, {columns.Count()} columns and {fieldsAndProps.Count()} fields produced only {joined.Count()} matches. " +
+                    $"Instead, {columns.Length} columns and {fieldsAndProps.Length} fields produced only {joined.Count} matches. " +
                     $"Hint: be sure all your columns have _names_, and the names match up.");
             }
             return joined
@@ -61,46 +62,43 @@ namespace Jones.EntityFrameworkCore.Utils
 
         public T MapFrom(IDataRecord record)
         {
-            if (IsPrimitiveish)
+            if (_isPrimitive)
             {
                 // Primitive values will always have a single column, indexed by 0
                 return (T)record.GetValue(0);
             }
             var element = Activator.CreateInstance<T>();
-            foreach (var map in mappings)
-                map.Value.Match(
-                    f => f.SetValue(element, ChangeType(record[map.Key], f.FieldType)),
-                    p => p.SetValue(element, ChangeType(record[map.Key], p.PropertyType))
+            foreach (var (key, value) in _mappings)
+                value.Match(
+                    f => f.SetValue(element, ChangeType(record[key], f.FieldType)),
+                    p => p.SetValue(element, ChangeType(record[key], p.PropertyType))
                 );
 
             return element;
         }
 
-        static object ChangeType(object value, Type targetType)
+        private static object? ChangeType(object? value, Type targetType)
         {
             if (value == null || value == DBNull.Value)
                 return null;
 
-            if (targetType.IsEnum)
-            {
-                return Enum.ToObject(targetType, value);
-            }
-
-            return Convert.ChangeType(value, Nullable.GetUnderlyingType(targetType) ?? targetType);
+            return targetType.IsEnum 
+                ? Enum.ToObject(targetType, value) 
+                : Convert.ChangeType(value, Nullable.GetUnderlyingType(targetType) ?? targetType);
         }
     }
 
     public static class FieldAndPropsExtension
     {
-        public static IEnumerable<Either<FieldInfo, PropertyInfo>> FieldsAndProps(this Type T)
+        public static IEnumerable<Either<FieldInfo, PropertyInfo>> FieldsAndProps(this Type t)
         {
             var lst = new List<Either<FieldInfo, PropertyInfo>>();
             lst.AddRange(
-                T.GetFields()
+                t.GetFields()
                 .Select(field => new Either<FieldInfo, PropertyInfo>.Left(field))
             );
             lst.AddRange(
-                T.GetProperties()
+                t.GetProperties()
                 .Select(prop => new Either<FieldInfo, PropertyInfo>.Right(prop))
             );
             return lst;

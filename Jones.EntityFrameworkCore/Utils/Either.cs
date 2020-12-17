@@ -16,7 +16,7 @@ namespace Jones.EntityFrameworkCore.Utils
         public sealed class Left : Either<L, R>
         {
             public readonly L Item;
-            public Left(L item) : base() { this.Item = item; }
+            public Left(L item) { Item = item; }
             public override T Match<T>(Func<L, T> f, Func<R, T> g)
             {
                 return f(Item);

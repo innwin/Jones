@@ -12,12 +12,12 @@ namespace Jones.EntityFrameworkCore.Extensions
     public static class DbContextExtensions
     {
 
-        public static List<T> SqlQuery<T>(this DbContext context, string query, ILogger logger = null)
+        public static List<T> SqlQuery<T>(this DbContext context, string query, ILogger? logger = null)
         {
             return SqlQuery<T>(context, query, logger, null);
         }
 
-        public static List<T> SqlQuery<T>(this DbContext context, string query, params SqlParameter[] sqlParams)
+        public static List<T> SqlQuery<T>(this DbContext context, string query, params SqlParameter[]? sqlParams)
         {
             return SqlQuery<T>(context, query, null, sqlParams);
         }
@@ -26,7 +26,7 @@ namespace Jones.EntityFrameworkCore.Extensions
         /// execute Raw SQL queries: Non-model types
         /// https://github.com/aspnet/EntityFrameworkCore/issues/1862
         /// </summary>
-        public static List<T> SqlQuery<T>(this DbContext context, string query, ILogger logger, params SqlParameter[] sqlParams)
+        public static List<T> SqlQuery<T>(this DbContext context, string query, ILogger? logger, params SqlParameter[]? sqlParams)
         {
             using (var command = context.Database.GetDbConnection().CreateCommand())
             {
