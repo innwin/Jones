@@ -8,7 +8,7 @@ namespace Jones.DependencyInjection
     /// Provides easy fluent methods for building named registrations of the same interface
     /// </summary>
     /// <typeparam name="TService"></typeparam>
-    public class ServicesByNameBuilder<TService>
+    public class ServicesByNameBuilder<TService> where TService : class
     {
         private readonly IServiceCollection _services;
 

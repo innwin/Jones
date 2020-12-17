@@ -9,7 +9,7 @@ namespace Jones.DependencyInjection
         /// named registrations for <typeparamref name="TService"/>"/>
         /// </summary>
         /// <returns><see cref="ServicesByNameBuilder&lt;TService&gt;"/> which is used to build multiple named registrations</returns>
-        public static ServicesByNameBuilder<TService> AddByName<TService>(this IServiceCollection services)
+        public static ServicesByNameBuilder<TService> AddByName<TService>(this IServiceCollection services) where TService : class
         {
             return new ServicesByNameBuilder<TService>(services);
         }

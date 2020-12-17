@@ -7,7 +7,7 @@
         <Description>AutoMapper auxiliary library</Description>
         <LangVersion>9</LangVersion>
         <Nullable>enable</Nullable>
-        <PackageVersion>8.0.1</PackageVersion>
+        <PackageVersion>8.1.0</PackageVersion>
         <RepositoryUrl>https://github.com/innwin/Jones</RepositoryUrl>
     </PropertyGroup>
 
