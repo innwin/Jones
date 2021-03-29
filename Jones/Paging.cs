@@ -19,7 +19,7 @@ namespace Jones
         }
     }
     
-    public class Paging
+    public record Paging
     {
         public int Page { get; }
         public int PageSize { get; }
@@ -51,13 +51,13 @@ namespace Jones
         
         public Tk? NextPage { get; }
         public Tk? PreviousPage { get; }
-        public T[]? Items { get; }
+        public T[] Items { get; }
         public int PageSize { get; }
         public int TotalCount { get; }
         public int TotalPages { get; }
         public string? EmptyTips { get; }
 
-        public Paging(Tk page, Tk? nextPage, Tk? previousPage, T[]? items, int pageSize, int totalCount, string? emptyTips)
+        public Paging(Tk page, Tk? nextPage, Tk? previousPage, T[] items, int pageSize, int totalCount, string? emptyTips)
         {
             Page = page;
             NextPage = nextPage;
@@ -78,14 +78,14 @@ namespace Jones
         }
     }
 
-    public class Paging<T> : Paging
+    public record Paging<T> : Paging
     {
         public int? NextPage => Page >= TotalPages ? null : (int?) (Page + 1);
         public int? PreviousPage => Page == 1 || TotalPages <= 1 ? null : (int?) (Page - 1);
         
-        public T[]? Items { get; }
+        public T[] Items { get; }
 
-        public Paging(T[]? items, int page, int pageSize, int totalCount, string? emptyTips = null) : base(page, pageSize, totalCount, emptyTips)
+        public Paging(T[] items, int page, int pageSize, int totalCount, string? emptyTips = null) : base(page, pageSize, totalCount, emptyTips)
         {
             Items = items;
         }
