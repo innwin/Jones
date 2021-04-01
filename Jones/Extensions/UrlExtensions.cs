@@ -59,23 +59,23 @@ namespace Jones.Extensions
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
             AllowTrailingCommas = true,
         };
-        public static string ToQueryString(this object parameter, JsonSerializerOptions? options)
+        public static string ToQueryString(this object parameter, JsonSerializerOptions? options = null)
         {
             var json = JsonSerializer.Serialize(parameter, options ?? CreateGetMethodUrlJsonOptions);
             return string.Join("&", JsonSerializer.Deserialize<IDictionary<string, object>>(json, options ?? CreateGetMethodUrlJsonOptions)!.
                 Select(p => $"{p.Key}={Uri.EscapeDataString(p.Value.ToString()!)}"));
         }
-        public static string ToQueryString(this IEnumerable<object> parameters, JsonSerializerOptions? options)
+        public static string ToQueryString(this IEnumerable<object> parameters, JsonSerializerOptions? options = null)
         {
             return string.Join("&", parameters.Select(p => p.ToQueryString(options)));
         }
         
-        public static string CreateGetMethodUrl(this string? requestUri, IEnumerable<object> parameters, JsonSerializerOptions? options)
+        public static string CreateGetMethodUrl(this string? requestUri, IEnumerable<object> parameters, JsonSerializerOptions? options = null)
         {
             return $"{requestUri ?? ""}?{parameters.ToQueryString(options)}";
         }
 
-        public static string CreateGetMethodUrl(this string? requestUri, object parameter, JsonSerializerOptions? options)
+        public static string CreateGetMethodUrl(this string? requestUri, object parameter, JsonSerializerOptions? options = null)
         {
             return $"{requestUri ?? ""}?{parameter.ToQueryString(options)}";
         }
