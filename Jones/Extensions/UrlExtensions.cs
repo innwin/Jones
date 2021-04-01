@@ -1,3 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
+
 namespace Jones.Extensions
 {
     public static class UrlExtensions
@@ -42,6 +49,35 @@ namespace Jones.Extensions
                 // ignored
             }
             return nvc;
+        }
+
+        private static readonly JsonSerializerOptions CreateGetMethodUrlJsonOptions = new()
+        {
+            IgnoreNullValues = true, // 忽略null值的属性
+            PropertyNameCaseInsensitive = true, //忽略大小写
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+            AllowTrailingCommas = true,
+        };
+        public static string ToQueryString(this object parameter, JsonSerializerOptions? options)
+        {
+            var json = JsonSerializer.Serialize(parameter, options ?? CreateGetMethodUrlJsonOptions);
+            return string.Join("&", JsonSerializer.Deserialize<IDictionary<string, object>>(json, options ?? CreateGetMethodUrlJsonOptions)!.
+                Select(p => $"{p.Key}={Uri.EscapeDataString(p.Value.ToString()!)}"));
+        }
+        public static string ToQueryString(this IEnumerable<object> parameters, JsonSerializerOptions? options)
+        {
+            return string.Join("&", parameters.Select(p => p.ToQueryString(options)));
+        }
+        
+        public static string CreateGetMethodUrl(this string? requestUri, IEnumerable<object> parameters, JsonSerializerOptions? options)
+        {
+            return $"{requestUri ?? ""}?{parameters.ToQueryString(options)}";
+        }
+
+        public static string CreateGetMethodUrl(this string? requestUri, object parameter, JsonSerializerOptions? options)
+        {
+            return $"{requestUri ?? ""}?{parameter.ToQueryString(options)}";
         }
     }
 }
