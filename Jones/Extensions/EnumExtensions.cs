@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -25,6 +26,26 @@ namespace Jones.Extensions
         public static string? GetCategory(this Enum enumSubItem)
         {
             return enumSubItem.GetAttribute<CategoryAttribute>()?.Category;
+        }
+
+        public static DisplayAttribute? GetDisplay(this Enum enumSubItem)
+        {
+            return enumSubItem.GetAttribute<DisplayAttribute>();
+        }
+
+        public static string? GetDisplayShortName(this Enum enumSubItem)
+        {
+            return enumSubItem.GetDisplay()?.ShortName;
+        }
+
+        public static string? GetDisplayName(this Enum enumSubItem)
+        {
+            return enumSubItem.GetDisplay()?.Name;
+        }
+
+        public static string? GetDisplayPrompt(this Enum enumSubItem)
+        {
+            return enumSubItem.GetDisplay()?.Prompt;
         }
         
         public static T? GetEnumAttribute<T>(this Enum enumSubItem) where T : Attribute
@@ -70,6 +91,26 @@ namespace Jones.Extensions
                 stringBuilder.Append(category);
             }
             return stringBuilder.ToString();
+        }
+
+        public static DisplayAttribute? GetEnumDisplay(this Enum enumSubItem)
+        {
+            return enumSubItem.GetEnumAttribute<DisplayAttribute>();
+        }
+
+        public static string? GetEnumDisplayShortName(this Enum enumSubItem)
+        {
+            return enumSubItem.GetEnumDisplay()?.ShortName;
+        }
+
+        public static string? GetEnumDisplayName(this Enum enumSubItem)
+        {
+            return enumSubItem.GetEnumDisplay()?.Name;
+        }
+
+        public static string? GetEnumDisplayPrompt(this Enum enumSubItem)
+        {
+            return enumSubItem.GetEnumDisplay()?.Prompt;
         }
     }
 }
