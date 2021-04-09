@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Jones.Extensions
 {
@@ -12,8 +13,7 @@ namespace Jones.Extensions
             where TSource : class 
             where TAttribute : Attribute
         {
-            var expression = (MemberExpression)keySelector.Body;
-            string name = expression.Member.Name;
+            string name = GetPropertyName(keySelector);
             
             return source
                 .GetType()
@@ -65,8 +65,7 @@ namespace Jones.Extensions
             where TSource : class 
             where TAttribute : Attribute
         {
-            var expression = (MemberExpression)keySelector.Body;
-            string name = expression.Member.Name;
+            string name = GetPropertyName(keySelector);
             
             return source
                 .GetType()
@@ -110,6 +109,24 @@ namespace Jones.Extensions
             where TSource : class
         {
             return source.GetFieldDisplay(keySelector)?.Prompt;
+        }
+        
+        public static string GetPropertyName<T>(Expression<Func<T, dynamic>> property)
+        {
+            LambdaExpression lambda = property;
+            MemberExpression memberExpression;
+
+            if (lambda.Body is UnaryExpression)
+            {
+                UnaryExpression unaryExpression = (UnaryExpression)lambda.Body;
+                memberExpression = (MemberExpression)unaryExpression.Operand;
+            }
+            else
+            {
+                memberExpression = (MemberExpression)lambda.Body;
+            }
+
+            return memberExpression.Member.Name;
         }
     }
 }
