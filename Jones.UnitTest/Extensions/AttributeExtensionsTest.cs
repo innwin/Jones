@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Jones.Extensions;
 using NUnit.Framework;
 
@@ -22,6 +23,16 @@ namespace Jones.UnitTest.Extensions
             Console.WriteLine(myClass.GetFieldDescription(p => p.XiXi));
             Assert.AreEqual(myClass.GetFieldAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.XiXi)?.Description, "嘻嘻");
         }
+
+        [Test]
+        public void TestIsHasRequiredAttribute()
+        {
+            var myClass = new MyClass();
+            Console.WriteLine(myClass.IsHasRequiredAttribute(p => p.Name));
+            Assert.AreEqual(myClass.IsHasRequiredAttribute(p => p.Name), true);
+            Console.WriteLine(myClass.IsHasRequiredAttribute(p => p.ShortName));
+            Assert.AreEqual(myClass.IsHasRequiredAttribute(p => p.ShortName), false);
+        }
         
 
         [System.ComponentModel.Description("我的Enum")]
@@ -33,6 +44,11 @@ namespace Jones.UnitTest.Extensions
 
             [System.ComponentModel.Description("嘻嘻")]
             public string XiXi;
+            
+            [Required]
+            public string Name { get; set; }
+            
+            public string ShortName { get; set; }
         }
         
 

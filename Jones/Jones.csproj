@@ -7,7 +7,7 @@
         <Authors>innwin</Authors>
         <Nullable>enable</Nullable>
         <TargetFramework>net5.0</TargetFramework>
-        <PackageVersion>2.5.5</PackageVersion>
+        <PackageVersion>2.5.3</PackageVersion>
         <RepositoryUrl>https://github.com/innwin/Jones</RepositoryUrl>
     </PropertyGroup>
 

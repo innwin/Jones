@@ -128,5 +128,8 @@ namespace Jones.Extensions
 
             return memberExpression.Member.Name;
         }
+
+        public static bool IsHasRequiredAttribute<TSource>(this TSource source, Expression<Func<TSource, dynamic>> keySelector) 
+            where TSource : class => source.GetAttribute<RequiredAttribute, TSource>(keySelector) != null;
     }
 }
