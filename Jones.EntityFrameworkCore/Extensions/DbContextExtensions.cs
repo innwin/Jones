@@ -48,8 +48,8 @@ namespace Jones.EntityFrameworkCore.Extensions
                     }
 
                     sw.Stop();
-                    logger?.LogInformation($"Executed ({sw.ElapsedMilliseconds}ms)");
-                    logger?.LogInformation($"{query}");
+                    logger?.LogInformation("Executed ({ElapsedMilliseconds}ms)", sw.ElapsedMilliseconds);
+                    logger?.LogInformation("{Query}", query);
 
                     return list;
                 }
