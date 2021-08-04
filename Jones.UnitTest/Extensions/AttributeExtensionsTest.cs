@@ -48,7 +48,7 @@ namespace Jones.UnitTest.Extensions
             [Required]
             public string Name { get; set; }
             
-            public string ShortName { get; set; }
+            public string? ShortName { get; set; }
         }
         
 
