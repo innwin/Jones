@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using Jones.Extensions;
 using NUnit.Framework;
 
@@ -22,6 +23,16 @@ namespace Jones.UnitTest.Extensions
             Assert.AreEqual(myClass.GetAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.HaHa)?.Description, "哈哈");
             Console.WriteLine(myClass.GetFieldDescription(p => p.XiXi));
             Assert.AreEqual(myClass.GetFieldAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.XiXi)?.Description, "嘻嘻");
+
+            Expression<Func<dynamic?>> haha = () => myClass.HaHa;
+            Expression<Func<dynamic?>> hehe = () => myClass.HeHe;
+            Expression<Func<dynamic?>> xixi = () => myClass.XiXi;
+            Console.WriteLine(haha.GetDisplayName());
+            Console.WriteLine(haha.GetDisplayName());
+            Console.WriteLine(hehe.GetDisplayName());
+            Assert.AreEqual(haha.GetAttribute<System.ComponentModel.DescriptionAttribute>()?.Description, "哈哈");
+            Console.WriteLine(xixi.GetFieldDescription());
+            Assert.AreEqual(xixi.GetFieldAttribute<System.ComponentModel.DescriptionAttribute>()?.Description, "嘻嘻");
         }
 
         [Test]
