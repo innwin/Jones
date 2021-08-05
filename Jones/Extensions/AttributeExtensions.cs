@@ -94,6 +94,84 @@ namespace Jones.Extensions
 
         #endregion
         
+        #region accessor TField
+
+        public static IEnumerable<TAttribute>? GetAttributes<TAttribute, TField>(this Expression<Func<TField>> accessor)
+            where TAttribute : Attribute
+        {
+            var fieldIdentifier = FieldIdentifier.Create(accessor);
+
+            return fieldIdentifier.Model.GetType()
+                .GetProperties()
+                .FirstOrDefault(p => p.Name == fieldIdentifier.FieldName)?
+                .GetCustomAttributes(typeof(TAttribute), false)
+                .Cast<TAttribute>();
+        }
+        
+        public static TAttribute? GetAttribute<TAttribute, TField>(this Expression<Func<TField>> accessor)
+            where TAttribute : Attribute =>
+            accessor.GetAttributes<TAttribute, TField>()?.FirstOrDefault();
+
+        public static string? GetDescription<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetAttribute<DescriptionAttribute, TField>()?.Description;
+
+        public static string? GetCategory<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetAttribute<CategoryAttribute, TField>()?.Category;
+
+        public static DisplayAttribute? GetDisplay<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetAttribute<DisplayAttribute, TField>();
+
+        public static string? GetDisplayShortName<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetDisplay()?.ShortName;
+
+        public static string? GetDisplayName<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetDisplay()?.Name;
+
+        public static string? GetDisplayPrompt<TField>(this Expression<Func<TField>> accessor) => 
+            accessor.GetDisplay()?.Prompt;
+        
+        public static IEnumerable<TAttribute>? GetFieldAttributes<TAttribute, TField>(this Expression<Func<TField>> accessor)
+            where TAttribute : Attribute
+        {
+            var fieldIdentifier = FieldIdentifier.Create(accessor);
+            
+            return fieldIdentifier.Model.GetType()
+                .GetField(fieldIdentifier.FieldName)?
+                .GetCustomAttributes(typeof(TAttribute), false)
+                .Cast<TAttribute>();
+        }
+        
+        public static TAttribute? GetFieldAttribute<TAttribute, TField>(this Expression<Func<TField>> accessor)
+            where TAttribute : Attribute =>
+            accessor.GetFieldAttributes<TAttribute, TField>()?.FirstOrDefault();
+        
+        public static string? GetFieldDescription<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetFieldAttribute<DescriptionAttribute, TField>()?.Description;
+
+        public static string? GetFieldCategory<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetFieldAttribute<CategoryAttribute, TField>()?.Category;
+
+        public static DisplayAttribute? GetFieldDisplay<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetFieldAttribute<DisplayAttribute, TField>();
+
+        public static string? GetFieldDisplayShortName<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetFieldDisplay()?.ShortName;
+
+        public static string? GetFieldDisplayName<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetFieldDisplay()?.Name;
+
+        public static string? GetFieldDisplayPrompt<TField>(this Expression<Func<TField>> accessor) =>
+            accessor.GetFieldDisplay()?.Prompt;
+        
+        public static bool IsHasAttribute<TAttribute, TField>(this Expression<Func<TField>> accessor)
+            where TAttribute : Attribute => 
+            accessor.GetAttribute<TAttribute, TField>() != null;
+
+        public static bool IsHasRequiredAttribute<TField>(this Expression<Func<TField>> accessor) => 
+            accessor.IsHasAttribute<RequiredAttribute, TField>();
+
+        #endregion
+        
         #region keySelector
 
         public static IEnumerable<TAttribute>? GetAttributes<TAttribute, TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector)
