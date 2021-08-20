@@ -1,3 +1,5 @@
+using System;
+
 namespace Jones
 {
     public record PagingParams<Tk>
@@ -43,6 +45,12 @@ namespace Jones
                 }
             }
         }
+        
+        public int? NextPage => Page >= TotalPages ? null : Page + 1;
+        public int? PreviousPage => Page == 1 || TotalPages <= 1 ? null : Page - 1;
+        
+        public int StarPage => (Page - 1) * PageSize + 1;
+        public int EndPage => Math.Min(Page * PageSize, TotalCount);
     }
 
     public record Paging<Tk, T>
@@ -80,9 +88,6 @@ namespace Jones
 
     public record Paging<T> : Paging
     {
-        public int? NextPage => Page >= TotalPages ? null : (int?) (Page + 1);
-        public int? PreviousPage => Page == 1 || TotalPages <= 1 ? null : (int?) (Page - 1);
-        
         public T[] Items { get; }
 
         public Paging(T[] items, int page, int pageSize, int totalCount, string? emptyTips = null) : base(page, pageSize, totalCount, emptyTips)
