@@ -26,7 +26,24 @@ namespace Jones
         public int Page { get; }
         public int PageSize { get; }
         public int TotalCount { get; }
-        public int TotalPages { get; }
+
+        public int TotalPages
+        {
+            get
+            {
+                if (PageSize > 0)
+                {
+                    var totalPages = TotalCount / PageSize;
+                    if (TotalCount % PageSize > 0)
+                    {
+                        totalPages += 1;
+                    }
+                    return totalPages;
+                }
+                return 0;
+            }
+        }
+
         public string? EmptyTips { get; }
 
         public Paging(int page, int pageSize, int totalCount, string? emptyTips = null)
@@ -35,15 +52,6 @@ namespace Jones
             PageSize = pageSize;
             TotalCount = totalCount;
             EmptyTips = emptyTips;
-
-            if (PageSize > 0)
-            {
-                TotalPages = TotalCount / PageSize;
-                if (TotalCount % PageSize > 0)
-                {
-                    TotalPages += 1;
-                }
-            }
         }
         
         public int? NextPage => Page >= TotalPages ? null : Page + 1;
@@ -62,7 +70,22 @@ namespace Jones
         public T[] Items { get; }
         public int PageSize { get; }
         public int TotalCount { get; }
-        public int TotalPages { get; }
+        public int TotalPages
+        {
+            get
+            {
+                if (PageSize > 0)
+                {
+                    var totalPages = TotalCount / PageSize;
+                    if (TotalCount % PageSize > 0)
+                    {
+                        totalPages += 1;
+                    }
+                    return totalPages;
+                }
+                return 0;
+            }
+        }
         public string? EmptyTips { get; }
 
         public Paging(Tk page, Tk? nextPage, Tk? previousPage, T[] items, int pageSize, int totalCount, string? emptyTips)
@@ -74,15 +97,6 @@ namespace Jones
             PageSize = pageSize;
             TotalCount = totalCount;
             EmptyTips = emptyTips;
-            
-            if (PageSize > 0)
-            {
-                TotalPages = TotalCount / PageSize;
-                if (TotalCount % PageSize > 0)
-                {
-                    TotalPages += 1;
-                }
-            }
         }
     }
 
