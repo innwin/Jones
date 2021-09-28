@@ -4,11 +4,15 @@ namespace Jones.Extensions
 {
     public static class WhenExtensions
     {
-        public static void When<T>(this T source, Func<T, bool> predicate, Action<T> action)
+        public static void When<T>(this T source, Func<T, bool> predicate, Action<T>? onTrue, Action<T>? onElse = null)
         {
             if (predicate.Invoke(source))
             {
-                action.Invoke(source);
+                onTrue?.Invoke(source);
+            }
+            else
+            {
+                onElse?.Invoke(source);
             }
         }
         
