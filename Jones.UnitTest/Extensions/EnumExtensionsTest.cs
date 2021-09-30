@@ -1,4 +1,6 @@
+using System.Linq;
 using Jones.Extensions;
+using Jones.UnitTest.Types;
 using NUnit.Framework;
 
 namespace Jones.UnitTest.Extensions
@@ -23,13 +25,12 @@ namespace Jones.UnitTest.Extensions
             Assert.AreEqual(MyEnum.XiXi.GetEnumDescription(), "我的Enum");
         }
 
-        [System.ComponentModel.Description("我的Enum")]
-        enum MyEnum
+        [Test]
+        public void TestToRoleString()
         {
-            [System.ComponentModel.Description("哈哈")]
-            HaHa,
-            [System.ComponentModel.Description("嘻嘻")]
-            XiXi
+            var roleString = new[] {RoleType.Root, RoleType.Admin}.ToRoleString();
+            
+            Assert.AreEqual(roleString, "Root,Admin");
         }
     }
 }

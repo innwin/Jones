@@ -1,5 +1,6 @@
 using System.Linq;
 using Jones.Helper;
+using Jones.UnitTest.Types;
 using NUnit.Framework;
 
 namespace Jones.UnitTest.Helper
@@ -19,15 +20,12 @@ namespace Jones.UnitTest.Helper
             Assert.AreEqual(roleTypes[1], RoleType.Admin);
             Assert.AreEqual(roleTypes[2], RoleType.Root);
         }
-        
-        public enum RoleType
+
+        [Test]
+        public void TestToRoleString()
         {
-            [System.ComponentModel.Description("系统管理员")]
-            Root = 999,
-            [System.ComponentModel.Description("管理员")]
-            Admin = 99,
-            [System.ComponentModel.Description("用户")]
-            User = 11
+            var roleString = EnumHelper.ToRoleString(RoleType.Root, RoleType.Admin);
+            Assert.AreEqual(roleString, "Root,Admin");
         }
     }
 }

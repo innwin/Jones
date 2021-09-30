@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -112,5 +113,9 @@ namespace Jones.Extensions
         {
             return enumSubItem.GetEnumDisplay()?.Prompt;
         }
+
+
+        public static string ToRoleString<T>(this IEnumerable<T> enums) where T : Enum =>
+            string.Join(",", enums.Select(p => p.ToString()));
     }
 }
