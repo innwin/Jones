@@ -10,5 +10,8 @@ namespace Jones.Helper
         
         public static string ToRoleString(params Enum[] enums) => 
             string.Join(",", enums.Select(p => p.ToString()));
+        
+        public static string ToRoleString(IEnumerable<Enum> enums) => 
+            string.Join(",", enums.Select(p => p.ToString()));
     }
 }
