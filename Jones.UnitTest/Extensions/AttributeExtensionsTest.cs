@@ -20,9 +20,9 @@ namespace Jones.UnitTest.Extensions
             Console.WriteLine(myClass.GetDescription(p => p.HaHa));
             Console.WriteLine(myClass.GetDisplayName(p => p.HaHa));
             Console.WriteLine(myClass.GetDisplayName(p => p.HeHe));
-            Assert.AreEqual(myClass.GetAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.HaHa)?.Description, "哈哈");
+            Assert.AreEqual(myClass.GetAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.HaHa, false)?.Description, "哈哈");
             Console.WriteLine(myClass.GetFieldDescription(p => p.XiXi));
-            Assert.AreEqual(myClass.GetFieldAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.XiXi)?.Description, "嘻嘻");
+            Assert.AreEqual(myClass.GetFieldAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.XiXi, false)?.Description, "嘻嘻");
 
             Expression<Func<dynamic?>> haha = () => myClass.HaHa;
             Expression<Func<dynamic?>> hehe = () => myClass.HeHe;
@@ -30,9 +30,9 @@ namespace Jones.UnitTest.Extensions
             Console.WriteLine(haha.GetDisplayName());
             Console.WriteLine(haha.GetDisplayName());
             Console.WriteLine(hehe.GetDisplayName());
-            Assert.AreEqual(haha.GetAttribute<System.ComponentModel.DescriptionAttribute>()?.Description, "哈哈");
+            Assert.AreEqual(haha.GetAttribute<System.ComponentModel.DescriptionAttribute>(false)?.Description, "哈哈");
             Console.WriteLine(xixi.GetFieldDescription());
-            Assert.AreEqual(xixi.GetFieldAttribute<System.ComponentModel.DescriptionAttribute>()?.Description, "嘻嘻");
+            Assert.AreEqual(xixi.GetFieldAttribute<System.ComponentModel.DescriptionAttribute>(false)?.Description, "嘻嘻");
         }
 
         [Test]

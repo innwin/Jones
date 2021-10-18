@@ -9,69 +9,69 @@ namespace Jones.Extensions
 {
     public static class EnumExtensions
     {
-        public static T? GetAttribute<T>(this Enum enumSubItem) where T : Attribute
+        public static T? GetAttribute<T>(this Enum enumSubItem, bool isInherit) where T : Attribute
         {
             return enumSubItem
                 .GetType()
                 .GetField(enumSubItem.ToString())?
-                .GetCustomAttributes(typeof(T), false)
+                .GetCustomAttributes(typeof(T), isInherit)
                 .Cast<T>()
                 .FirstOrDefault();
         }
 
-        public static string? GetDescription(this Enum enumSubItem)
+        public static string? GetDescription(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetAttribute<DescriptionAttribute>()?.Description;
+            return enumSubItem.GetAttribute<DescriptionAttribute>(isInherit)?.Description;
         }
 
-        public static string? GetCategory(this Enum enumSubItem)
+        public static string? GetCategory(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetAttribute<CategoryAttribute>()?.Category;
+            return enumSubItem.GetAttribute<CategoryAttribute>(isInherit)?.Category;
         }
 
-        public static DisplayAttribute? GetDisplay(this Enum enumSubItem)
+        public static DisplayAttribute? GetDisplay(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetAttribute<DisplayAttribute>();
+            return enumSubItem.GetAttribute<DisplayAttribute>(isInherit);
         }
 
-        public static string? GetDisplayShortName(this Enum enumSubItem)
+        public static string? GetDisplayShortName(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetDisplay()?.ShortName;
+            return enumSubItem.GetDisplay(isInherit)?.ShortName;
         }
 
-        public static string? GetDisplayName(this Enum enumSubItem)
+        public static string? GetDisplayName(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetDisplay()?.Name;
+            return enumSubItem.GetDisplay(isInherit)?.Name;
         }
 
-        public static string? GetDisplayPrompt(this Enum enumSubItem)
+        public static string? GetDisplayPrompt(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetDisplay()?.Prompt;
+            return enumSubItem.GetDisplay(isInherit)?.Prompt;
         }
         
-        public static T? GetEnumAttribute<T>(this Enum enumSubItem) where T : Attribute
+        public static T? GetEnumAttribute<T>(this Enum enumSubItem, bool isInherit) where T : Attribute
         {
             return enumSubItem
                 .GetType()
-                .GetCustomAttributes(typeof(T), false)
+                .GetCustomAttributes(typeof(T), isInherit)
                 .Cast<T>()
                 .FirstOrDefault();
         }
 
-        public static string? GetEnumDescription(this Enum enumSubItem)
+        public static string? GetEnumDescription(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetEnumAttribute<DescriptionAttribute>()?.Description;
+            return enumSubItem.GetEnumAttribute<DescriptionAttribute>(isInherit)?.Description;
         }
 
-        public static string? GetEnumCategory(this Enum enumSubItem)
+        public static string? GetEnumCategory(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetEnumAttribute<CategoryAttribute>()?.Category;
+            return enumSubItem.GetEnumAttribute<CategoryAttribute>(isInherit)?.Category;
         }
 
-        public static string? GetEnumDescriptionAndCategory(this Enum enumSubItem)
+        public static string? GetEnumDescriptionAndCategory(this Enum enumSubItem, bool isInherit = false)
         {
-            var description = enumSubItem.GetEnumDescription();
-            var category = enumSubItem.GetEnumCategory();
+            var description = enumSubItem.GetEnumDescription(isInherit);
+            var category = enumSubItem.GetEnumCategory(isInherit);
             if (description == null && category == null)
             {
                 return null;
@@ -94,24 +94,24 @@ namespace Jones.Extensions
             return stringBuilder.ToString();
         }
 
-        public static DisplayAttribute? GetEnumDisplay(this Enum enumSubItem)
+        public static DisplayAttribute? GetEnumDisplay(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetEnumAttribute<DisplayAttribute>();
+            return enumSubItem.GetEnumAttribute<DisplayAttribute>(isInherit);
         }
 
-        public static string? GetEnumDisplayShortName(this Enum enumSubItem)
+        public static string? GetEnumDisplayShortName(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetEnumDisplay()?.ShortName;
+            return enumSubItem.GetEnumDisplay(isInherit)?.ShortName;
         }
 
-        public static string? GetEnumDisplayName(this Enum enumSubItem)
+        public static string? GetEnumDisplayName(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetEnumDisplay()?.Name;
+            return enumSubItem.GetEnumDisplay(isInherit)?.Name;
         }
 
-        public static string? GetEnumDisplayPrompt(this Enum enumSubItem)
+        public static string? GetEnumDisplayPrompt(this Enum enumSubItem, bool isInherit = false)
         {
-            return enumSubItem.GetEnumDisplay()?.Prompt;
+            return enumSubItem.GetEnumDisplay(isInherit)?.Prompt;
         }
 
 
