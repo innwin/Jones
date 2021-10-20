@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using Jones.Extensions;
 using NUnit.Framework;
+using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
 namespace Jones.UnitTest.Extensions
 {
@@ -20,9 +21,9 @@ namespace Jones.UnitTest.Extensions
             Console.WriteLine(myClass.GetDescription(p => p.HaHa));
             Console.WriteLine(myClass.GetDisplayName(p => p.HaHa));
             Console.WriteLine(myClass.GetDisplayName(p => p.HeHe));
-            Assert.AreEqual(myClass.GetAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.HaHa, false)?.Description, "哈哈");
+            Assert.AreEqual(myClass.GetAttribute<DescriptionAttribute, MyClass>(p => p.HaHa, false)?.Description, "哈哈");
             Console.WriteLine(myClass.GetFieldDescription(p => p.XiXi));
-            Assert.AreEqual(myClass.GetFieldAttribute<System.ComponentModel.DescriptionAttribute, MyClass>(p => p.XiXi, false)?.Description, "嘻嘻");
+            Assert.AreEqual(myClass.GetFieldAttribute<DescriptionAttribute, MyClass>(p => p.XiXi, false)?.Description, "嘻嘻");
 
             Expression<Func<dynamic?>> haha = () => myClass.HaHa;
             Expression<Func<dynamic?>> hehe = () => myClass.HeHe;
@@ -30,9 +31,9 @@ namespace Jones.UnitTest.Extensions
             Console.WriteLine(haha.GetDisplayName());
             Console.WriteLine(haha.GetDisplayName());
             Console.WriteLine(hehe.GetDisplayName());
-            Assert.AreEqual(haha.GetAttribute<System.ComponentModel.DescriptionAttribute>(false)?.Description, "哈哈");
+            Assert.AreEqual(haha.GetAttribute<DescriptionAttribute>(false)?.Description, "哈哈");
             Console.WriteLine(xixi.GetFieldDescription());
-            Assert.AreEqual(xixi.GetFieldAttribute<System.ComponentModel.DescriptionAttribute>(false)?.Description, "嘻嘻");
+            Assert.AreEqual(xixi.GetFieldAttribute<DescriptionAttribute>(false)?.Description, "嘻嘻");
         }
 
         [Test]
@@ -46,14 +47,14 @@ namespace Jones.UnitTest.Extensions
         }
         
 
-        [System.ComponentModel.Description("我的Enum")]
+        [Description("我的Enum")]
         record MyClass
         {
-            [System.ComponentModel.Description("哈哈")]
-            [System.ComponentModel.DataAnnotations.Display(Name = "哈哈哈哈哈哈")]
+            [Description("哈哈")]
+            [Display(Name = "哈哈哈哈哈哈")]
             public int HaHa { get; set; }
 
-            [System.ComponentModel.Description("嘻嘻")]
+            [Description("嘻嘻")]
             public string XiXi;
             
             [Required]
@@ -63,11 +64,11 @@ namespace Jones.UnitTest.Extensions
         }
         
 
-        [System.ComponentModel.Description("我的Enum")]
+        [Description("我的Enum")]
         record MyClass2 : MyClass
         {
-            [System.ComponentModel.Description("呵呵")]
-            [System.ComponentModel.DataAnnotations.Display(Name = "呵呵呵呵呵呵")]
+            [Description("呵呵")]
+            [Display(Name = "呵呵呵呵呵呵")]
             public string HeHe { get; set; } = "hehehe";
         }
     }

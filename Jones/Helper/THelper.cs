@@ -5,7 +5,7 @@ namespace Jones.Helper
 {
     public static class THelper
     {
-        public static string GetPropertyName<T>(Expression<Func<T, dynamic?>> property)
+        public static string GetMemberName<T>(Expression<Func<T, dynamic?>> property)
         {
             LambdaExpression lambda = property;
             MemberExpression memberExpression;

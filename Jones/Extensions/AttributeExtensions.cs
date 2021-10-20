@@ -10,68 +10,174 @@ namespace Jones.Extensions
 {
     public static class AttributeExtensions
     {
-        public static IEnumerable<TAttribute>? GetAttributes<TAttribute>(this Type type, string? fieldName, bool isInherit)
-        {
-            return fieldName == null 
-                ? type.GetCustomAttributes(typeof(TAttribute), isInherit).Cast<TAttribute>() 
-                : type.GetProperties()
-                    .FirstOrDefault(p => p.Name == fieldName)?
-                    .GetCustomAttributes(typeof(TAttribute), isInherit)
-                    .Cast<TAttribute>();
-        }
+        #region Type Base Attribute
 
-        public static TAttribute? GetAttribute<TAttribute>(this Type type, string? fieldName, bool isInherit)
-            where TAttribute : Attribute =>
-            type.GetAttributes<TAttribute>(fieldName, isInherit)?.FirstOrDefault();
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this Type type, bool isInherit) =>
+            type.GetCustomAttributes(typeof(TAttribute), isInherit).Cast<TAttribute>();
         
-        public static string? GetDescription(this Type type, string? fieldName = null, bool isInherit = false)
+        public static TAttribute? GetAttribute<TAttribute>(this Type type, bool isInherit)
+            where TAttribute : Attribute =>
+            type.GetAttributes<TAttribute>(isInherit).FirstOrDefault();
+
+        public static bool IsHasAttribute<TAttribute>(this Type type, bool isInherit)
+            where TAttribute : Attribute => 
+            type.GetAttribute<TAttribute>(isInherit) != null;
+
+        public static bool IsHasRequiredAttribute(this Type type, bool isInherit = false) => 
+            type.IsHasAttribute<RequiredAttribute>(isInherit);
+        
+        public static string? GetDescription(this Type type, bool isInherit = false)
         {
-            return type.GetAttribute<DescriptionAttribute>(fieldName, isInherit)?.Description;
+            return type.GetAttribute<DescriptionAttribute>(isInherit)?.Description;
         }
 
-        public static string? GetCategory(this Type type, string? fieldName = null, bool isInherit = false)
+        public static string? GetCategory(this Type type, bool isInherit = false)
         {
-            return type.GetAttribute<CategoryAttribute>(fieldName, isInherit)?.Category;
+            return type.GetAttribute<CategoryAttribute>(isInherit)?.Category;
         }
 
-        public static DisplayAttribute? GetDisplay(this Type type, string? fieldName = null, bool isInherit = false)
+        public static DisplayAttribute? GetDisplay(this Type type, bool isInherit = false)
         {
-            return type.GetAttribute<DisplayAttribute>(fieldName, isInherit);
+            return type.GetAttribute<DisplayAttribute>(isInherit);
         }
 
-        public static string? GetDisplayShortName(this Type type, string? fieldName = null, bool isInherit = false)
+        public static string? GetDisplayShortName(this Type type, bool isInherit = false)
         {
-            return type.GetDisplay(fieldName, isInherit)?.ShortName;
+            return type.GetDisplay(isInherit)?.ShortName;
         }
 
-        public static string? GetDisplayName(this Type type, string? fieldName = null, bool isInherit = false)
+        public static string? GetDisplayName(this Type type, bool isInherit = false)
         {
-            return type.GetDisplay(fieldName, isInherit)?.Name;
+            return type.GetDisplay(isInherit)?.Name;
         }
 
-        public static string? GetDisplayPrompt(this Type type, string? fieldName = null, bool isInherit = false)
+        public static string? GetDisplayPrompt(this Type type, bool isInherit = false)
         {
-            return type.GetDisplay(fieldName, isInherit)?.Prompt;
+            return type.GetDisplay(isInherit)?.Prompt;
         }
-            
 
-        #region accessor
+        #endregion
+
+        #region Property Base Attribute
+
+        public static IEnumerable<TAttribute>? GetAttributes<TAttribute>(this Type type, string propertyName, bool isInherit) =>
+            type.GetProperties()
+                .FirstOrDefault(p => p.Name == propertyName)?
+                .GetCustomAttributes(typeof(TAttribute), isInherit)
+                .Cast<TAttribute>();
+
+        public static TAttribute? GetAttribute<TAttribute>(this Type type, string propertyName, bool isInherit)
+            where TAttribute : Attribute =>
+            type.GetAttributes<TAttribute>(propertyName, isInherit)?.FirstOrDefault();
+
+        public static bool IsHasAttribute<TAttribute>(this Type type, string propertyName, bool isInherit)
+            where TAttribute : Attribute => 
+            type.GetAttribute<TAttribute>(propertyName, isInherit) != null;
+
+        public static bool IsHasRequiredAttribute(this Type type, string propertyName, bool isInherit = false) => 
+            type.IsHasAttribute<RequiredAttribute>(propertyName, isInherit);
+        
+        public static string? GetDescription(this Type type, string propertyName, bool isInherit = false)
+        {
+            return type.GetAttribute<DescriptionAttribute>(propertyName, isInherit)?.Description;
+        }
+
+        public static string? GetCategory(this Type type, string propertyName, bool isInherit = false)
+        {
+            return type.GetAttribute<CategoryAttribute>(propertyName, isInherit)?.Category;
+        }
+
+        public static DisplayAttribute? GetDisplay(this Type type, string propertyName, bool isInherit = false)
+        {
+            return type.GetAttribute<DisplayAttribute>(propertyName, isInherit);
+        }
+
+        public static string? GetDisplayShortName(this Type type, string propertyName, bool isInherit = false)
+        {
+            return type.GetDisplay(propertyName, isInherit)?.ShortName;
+        }
+
+        public static string? GetDisplayName(this Type type, string propertyName, bool isInherit = false)
+        {
+            return type.GetDisplay(propertyName, isInherit)?.Name;
+        }
+
+        public static string? GetDisplayPrompt(this Type type, string propertyName, bool isInherit = false)
+        {
+            return type.GetDisplay(propertyName, isInherit)?.Prompt;
+        }
+
+        #endregion
+
+        #region Field Base Attribute
+
+        public static IEnumerable<TAttribute>? GetFieldAttributes<TAttribute>(this Type type, string fieldName, bool isInherit) =>
+            type.GetField(fieldName)?
+                .GetCustomAttributes(typeof(TAttribute), isInherit)
+                .Cast<TAttribute>();
+
+        public static TAttribute? GetFieldAttribute<TAttribute>(this Type type, string fieldName, bool isInherit)
+            where TAttribute : Attribute =>
+            type.GetFieldAttributes<TAttribute>(fieldName, isInherit)?.FirstOrDefault();
+
+        public static bool IsHasFieldAttribute<TAttribute>(this Type type, string fieldName, bool isInherit)
+            where TAttribute : Attribute => 
+            type.GetFieldAttribute<TAttribute>(fieldName, isInherit) != null;
+
+        public static bool IsHasRequiredFieldAttribute(this Type type, string fieldName, bool isInherit = false) => 
+            type.IsHasFieldAttribute<RequiredAttribute>(fieldName, isInherit);
+        
+        public static string? GetFieldDescription(this Type type, string fieldName, bool isInherit = false)
+        {
+            return type.GetFieldAttribute<DescriptionAttribute>(fieldName, isInherit)?.Description;
+        }
+
+        public static string? GetFieldCategory(this Type type, string fieldName, bool isInherit = false)
+        {
+            return type.GetFieldAttribute<CategoryAttribute>(fieldName, isInherit)?.Category;
+        }
+
+        public static DisplayAttribute? GetFieldDisplay(this Type type, string fieldName, bool isInherit = false)
+        {
+            return type.GetFieldAttribute<DisplayAttribute>(fieldName, isInherit);
+        }
+
+        public static string? GetFieldDisplayShortName(this Type type, string fieldName, bool isInherit = false)
+        {
+            return type.GetFieldDisplay(fieldName, isInherit)?.ShortName;
+        }
+
+        public static string? GetFieldDisplayName(this Type type, string fieldName, bool isInherit = false)
+        {
+            return type.GetFieldDisplay(fieldName, isInherit)?.Name;
+        }
+
+        public static string? GetFieldDisplayPrompt(this Type type, string fieldName, bool isInherit = false)
+        {
+            return type.GetFieldDisplay(fieldName, isInherit)?.Prompt;
+        }
+
+        #endregion
+        
+        #region Property accessor
 
         public static IEnumerable<TAttribute>? GetAttributes<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit)
             where TAttribute : Attribute
         {
             var fieldIdentifier = FieldIdentifier.Create(accessor);
-
-            return fieldIdentifier.Model.GetType()
-                .GetProperties()
-                .FirstOrDefault(p => p.Name == fieldIdentifier.FieldName)?
-                .GetCustomAttributes(typeof(TAttribute), isInherit)
-                .Cast<TAttribute>();
+            return fieldIdentifier.Model.GetType().GetAttributes<TAttribute>(fieldIdentifier.FieldName, isInherit);
         }
         
         public static TAttribute? GetAttribute<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit)
             where TAttribute : Attribute =>
             accessor.GetAttributes<TAttribute>(isInherit)?.FirstOrDefault();
+
+        public static bool IsHasAttribute<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit)
+            where TAttribute : Attribute => 
+            accessor.GetAttribute<TAttribute>(isInherit) != null;
+
+        public static bool IsHasRequiredAttribute(this Expression<Func<dynamic?>> accessor, bool isInherit = false) => 
+            accessor.IsHasAttribute<RequiredAttribute>(isInherit);
 
         public static string? GetDescription(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
             accessor.GetAttribute<DescriptionAttribute>(isInherit)?.Description;
@@ -91,65 +197,24 @@ namespace Jones.Extensions
         public static string? GetDisplayPrompt(this Expression<Func<dynamic?>> accessor, bool isInherit = false) => 
             accessor.GetDisplay(isInherit)?.Prompt;
         
-        public static IEnumerable<TAttribute>? GetFieldAttributes<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit)
-            where TAttribute : Attribute
-        {
-            var fieldIdentifier = FieldIdentifier.Create(accessor);
-            
-            return fieldIdentifier.Model.GetType()
-                .GetField(fieldIdentifier.FieldName)?
-                .GetCustomAttributes(typeof(TAttribute), isInherit)
-                .Cast<TAttribute>();
-        }
         
-        public static TAttribute? GetFieldAttribute<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit)
-            where TAttribute : Attribute =>
-            accessor.GetFieldAttributes<TAttribute>(isInherit)?.FirstOrDefault();
-        
-        public static string? GetFieldDescription(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
-            accessor.GetFieldAttribute<DescriptionAttribute>(isInherit)?.Description;
-
-        public static string? GetFieldCategory(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
-            accessor.GetFieldAttribute<CategoryAttribute>(isInherit)?.Category;
-
-        public static DisplayAttribute? GetFieldDisplay(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
-            accessor.GetFieldAttribute<DisplayAttribute>(isInherit);
-
-        public static string? GetFieldDisplayShortName(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
-            accessor.GetFieldDisplay(isInherit)?.ShortName;
-
-        public static string? GetFieldDisplayName(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
-            accessor.GetFieldDisplay(isInherit)?.Name;
-
-        public static string? GetFieldDisplayPrompt(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
-            accessor.GetFieldDisplay(isInherit)?.Prompt;
-        
-        public static bool IsHasAttribute<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit = false)
-            where TAttribute : Attribute => 
-            accessor.GetAttribute<TAttribute>(isInherit) != null;
-
-        public static bool IsHasRequiredAttribute(this Expression<Func<dynamic?>> accessor, bool isInherit = false) => 
-            accessor.IsHasAttribute<RequiredAttribute>(isInherit);
-
-        #endregion
-        
-        #region accessor TField
-
         public static IEnumerable<TAttribute>? GetAttributes<TAttribute, TField>(this Expression<Func<TField>> accessor, bool isInherit)
             where TAttribute : Attribute
         {
             var fieldIdentifier = FieldIdentifier.Create(accessor);
-
-            return fieldIdentifier.Model.GetType()
-                .GetProperties()
-                .FirstOrDefault(p => p.Name == fieldIdentifier.FieldName)?
-                .GetCustomAttributes(typeof(TAttribute), isInherit)
-                .Cast<TAttribute>();
+            return fieldIdentifier.Model.GetType().GetAttributes<TAttribute>(fieldIdentifier.FieldName, isInherit);
         }
         
         public static TAttribute? GetAttribute<TAttribute, TField>(this Expression<Func<TField>> accessor, bool isInherit)
             where TAttribute : Attribute =>
             accessor.GetAttributes<TAttribute, TField>(isInherit)?.FirstOrDefault();
+
+        public static bool IsHasAttribute<TAttribute, TField>(this Expression<Func<TField>> accessor, bool isInherit)
+            where TAttribute : Attribute => 
+            accessor.GetAttribute<TAttribute, TField>(isInherit) != null;
+
+        public static bool IsHasRequiredAttribute<TField>(this Expression<Func<TField>> accessor, bool isInherit = false) => 
+            accessor.IsHasAttribute<RequiredAttribute, TField>(isInherit);
 
         public static string? GetDescription<TField>(this Expression<Func<TField>> accessor, bool isInherit = false) =>
             accessor.GetAttribute<DescriptionAttribute, TField>(isInherit)?.Description;
@@ -169,20 +234,64 @@ namespace Jones.Extensions
         public static string? GetDisplayPrompt<TField>(this Expression<Func<TField>> accessor, bool isInherit = false) => 
             accessor.GetDisplay(isInherit)?.Prompt;
         
+        #endregion
+        
+        #region Field accessor
+        
+        public static IEnumerable<TAttribute>? GetFieldAttributes<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit)
+            where TAttribute : Attribute
+        {
+            var fieldIdentifier = FieldIdentifier.Create(accessor);
+            return fieldIdentifier.Model.GetType().GetFieldAttributes<TAttribute>(fieldIdentifier.FieldName, isInherit);
+        }
+        
+        public static TAttribute? GetFieldAttribute<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit)
+            where TAttribute : Attribute =>
+            accessor.GetFieldAttributes<TAttribute>(isInherit)?.FirstOrDefault();
+ 
+        public static bool IsHasFieldAttribute<TAttribute>(this Expression<Func<dynamic?>> accessor, bool isInherit)
+            where TAttribute : Attribute => 
+            accessor.GetFieldAttribute<TAttribute>(isInherit) != null;
+
+        public static bool IsHasRequiredFieldAttribute(this Expression<Func<dynamic?>> accessor, bool isInherit = false) => 
+            accessor.IsHasFieldAttribute<RequiredAttribute>(isInherit);
+        
+        public static string? GetFieldDescription(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
+            accessor.GetFieldAttribute<DescriptionAttribute>(isInherit)?.Description;
+
+        public static string? GetFieldCategory(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
+            accessor.GetFieldAttribute<CategoryAttribute>(isInherit)?.Category;
+
+        public static DisplayAttribute? GetFieldDisplay(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
+            accessor.GetFieldAttribute<DisplayAttribute>(isInherit);
+
+        public static string? GetFieldDisplayShortName(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
+            accessor.GetFieldDisplay(isInherit)?.ShortName;
+
+        public static string? GetFieldDisplayName(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
+            accessor.GetFieldDisplay(isInherit)?.Name;
+
+        public static string? GetFieldDisplayPrompt(this Expression<Func<dynamic?>> accessor, bool isInherit = false) =>
+            accessor.GetFieldDisplay(isInherit)?.Prompt;
+        
+        
         public static IEnumerable<TAttribute>? GetFieldAttributes<TAttribute, TField>(this Expression<Func<TField>> accessor, bool isInherit)
             where TAttribute : Attribute
         {
             var fieldIdentifier = FieldIdentifier.Create(accessor);
-            
-            return fieldIdentifier.Model.GetType()
-                .GetField(fieldIdentifier.FieldName)?
-                .GetCustomAttributes(typeof(TAttribute), isInherit)
-                .Cast<TAttribute>();
+            return fieldIdentifier.Model.GetType().GetFieldAttributes<TAttribute>(fieldIdentifier.FieldName, isInherit);
         }
         
         public static TAttribute? GetFieldAttribute<TAttribute, TField>(this Expression<Func<TField>> accessor, bool isInherit)
             where TAttribute : Attribute =>
             accessor.GetFieldAttributes<TAttribute, TField>(isInherit)?.FirstOrDefault();
+ 
+        public static bool IsHasFieldAttribute<TAttribute, TField>(this Expression<Func<TField>> accessor, bool isInherit)
+            where TAttribute : Attribute => 
+            accessor.GetFieldAttribute<TAttribute, TField>(isInherit) != null;
+
+        public static bool IsHasRequiredFieldAttribute<TField>(this Expression<Func<TField>> accessor, bool isInherit = false) => 
+            accessor.IsHasFieldAttribute<RequiredAttribute, TField>(isInherit);
         
         public static string? GetFieldDescription<TField>(this Expression<Func<TField>> accessor, bool isInherit = false) =>
             accessor.GetFieldAttribute<DescriptionAttribute, TField>(isInherit)?.Description;
@@ -202,35 +311,31 @@ namespace Jones.Extensions
         public static string? GetFieldDisplayPrompt<TField>(this Expression<Func<TField>> accessor, bool isInherit = false) =>
             accessor.GetFieldDisplay(isInherit)?.Prompt;
         
-        public static bool IsHasAttribute<TAttribute, TField>(this Expression<Func<TField>> accessor, bool isInherit = false)
-            where TAttribute : Attribute => 
-            accessor.GetAttribute<TAttribute, TField>(isInherit) != null;
-
-        public static bool IsHasRequiredAttribute<TField>(this Expression<Func<TField>> accessor, bool isInherit = false) => 
-            accessor.IsHasAttribute<RequiredAttribute, TField>(isInherit);
-
         #endregion
         
-        #region keySelector
-
+        #region Property keySelector
+        
         public static IEnumerable<TAttribute>? GetAttributes<TAttribute, TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit)
             where TSource : class 
             where TAttribute : Attribute
         {
-            string name = THelper.GetPropertyName(keySelector);
-
-            return source
-                .GetType()
-                .GetProperties()
-                .FirstOrDefault(p => p.Name == name)?
-                .GetCustomAttributes(typeof(TAttribute), isInherit)
-                .Cast<TAttribute>();
+            var name = THelper.GetMemberName(keySelector);
+            return source.GetType().GetAttributes<TAttribute>(name, isInherit);
         }
         
         public static TAttribute? GetAttribute<TAttribute, TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit) 
             where TSource : class 
             where TAttribute : Attribute =>
             source.GetAttributes<TAttribute, TSource>(keySelector, isInherit)?.FirstOrDefault();
+
+        public static bool IsHasAttribute<TAttribute, TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit)
+            where TSource : class 
+            where TAttribute : Attribute => 
+            source.GetAttribute<TAttribute, TSource>(keySelector, isInherit) != null;
+
+        public static bool IsHasRequiredAttribute<TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit = false) 
+            where TSource : class => 
+            source.IsHasAttribute<RequiredAttribute, TSource>(keySelector, isInherit);
 
         public static string? GetDescription<TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit = false)
             where TSource : class
@@ -268,24 +373,31 @@ namespace Jones.Extensions
             return source.GetDisplay(keySelector, isInherit)?.Prompt;
         }
         
+        #endregion
+        
+        #region Field keySelector
         
         public static IEnumerable<TAttribute>? GetFieldAttributes<TAttribute, TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit) 
             where TSource : class 
             where TAttribute : Attribute
         {
-            string name = THelper.GetPropertyName(keySelector);
-            
-            return source
-                .GetType()
-                .GetField(name)?
-                .GetCustomAttributes(typeof(TAttribute), isInherit)
-                .Cast<TAttribute>();
+            string name = THelper.GetMemberName(keySelector);
+            return source.GetType().GetFieldAttributes<TAttribute>(name, isInherit);
         }
         
         public static TAttribute? GetFieldAttribute<TAttribute, TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit) 
             where TSource : class 
             where TAttribute : Attribute =>
             source.GetFieldAttributes<TAttribute, TSource>(keySelector, isInherit)?.FirstOrDefault();
+ 
+        public static bool IsHasFieldAttribute<TAttribute, TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit)
+            where TSource : class 
+            where TAttribute : Attribute => 
+            source.GetFieldAttribute<TAttribute, TSource>(keySelector, isInherit) != null;
+
+        public static bool IsHasRequiredFieldAttribute<TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit = false) 
+            where TSource : class => 
+            source.IsHasFieldAttribute<RequiredAttribute, TSource>(keySelector, isInherit);
         
         public static string? GetFieldDescription<TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit = false)
             where TSource : class
@@ -323,14 +435,6 @@ namespace Jones.Extensions
             return source.GetFieldDisplay(keySelector, isInherit)?.Prompt;
         }
         
-        public static bool IsHasAttribute<TAttribute, TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit = false) 
-            where TSource : class
-            where TAttribute : Attribute => 
-            source.GetAttribute<TAttribute, TSource>(keySelector, isInherit) != null;
-
-        public static bool IsHasRequiredAttribute<TSource>(this TSource source, Expression<Func<TSource, dynamic?>> keySelector, bool isInherit = false) 
-            where TSource : class => source.IsHasAttribute<RequiredAttribute, TSource>(keySelector, isInherit);
-
         #endregion
     }
 }
