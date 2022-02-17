@@ -70,14 +70,14 @@ namespace Jones.Extensions
             return string.Join("&", parameters.Select(p => p.ToQueryString(options)));
         }
         
-        public static string CreateGetMethodUrl(this string? requestUri, IEnumerable<object> parameters, JsonSerializerOptions? options = null)
+        public static string? CreateGetMethodUrl(this string? requestUri, IEnumerable<object>? parameters, JsonSerializerOptions? options = null)
         {
-            return $"{requestUri ?? ""}?{parameters.ToQueryString(options)}";
+            return parameters == null ? requestUri : $"{requestUri ?? ""}?{parameters.ToQueryString(options)}";
         }
 
-        public static string CreateGetMethodUrl(this string? requestUri, object parameter, JsonSerializerOptions? options = null)
+        public static string? CreateGetMethodUrl(this string? requestUri, object? parameter, JsonSerializerOptions? options = null)
         {
-            return $"{requestUri ?? ""}?{parameter.ToQueryString(options)}";
+            return parameter == null ? requestUri :  $"{requestUri ?? ""}?{parameter.ToQueryString(options)}";
         }
     }
 }
