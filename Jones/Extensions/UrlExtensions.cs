@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Unicode;
 
 namespace Jones.Extensions
@@ -53,7 +54,7 @@ namespace Jones.Extensions
 
         private static readonly JsonSerializerOptions CreateGetMethodUrlJsonOptions = new()
         {
-            IgnoreNullValues = true, // 忽略null值的属性
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, // 忽略null值的属性
             PropertyNameCaseInsensitive = true, //忽略大小写
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),

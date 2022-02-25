@@ -2,6 +2,7 @@ using System;
 using System.Reactive.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Jones.EventBus.Redis.Extensions;
 using StackExchange.Redis;
 
@@ -11,7 +12,7 @@ namespace Jones.EventBus.Redis
     {
         private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
         {
-            IgnoreNullValues = true,    // 忽略null值的属性
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,    // 忽略null值的属性
             PropertyNameCaseInsensitive = true,    //忽略大小写
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping    // 序列化中文时的编码问题
         };
