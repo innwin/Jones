@@ -12,7 +12,7 @@ public static class RandomHelper
     /// <returns>数组的index</returns>
     public static int Random(float[] itemsWithWeight)
     {
-        var random = new Random();
+        var random = new Random(~unchecked((int)DateTime.Now.Ticks));
         var randomNumber = random.Next(1, 101);
         var each = 100f / itemsWithWeight.Sum();
         for (var i = 0; i < itemsWithWeight.Length; i++)
