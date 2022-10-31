@@ -9,4 +9,8 @@ public record CheckData<T>(bool IsTrue, string? Message, T? Data)
         data = Data;
         return IsTrue;
     }
+
+    public static CheckData<T> True(T data, string? message = null) => new(true, message, data);
+    
+    public static CheckData<T> False(string? message = null) => new(false, message, default);
 }
