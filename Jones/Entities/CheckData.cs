@@ -9,6 +9,12 @@ public record CheckData<T>(bool IsTrue, string? Message, T? Data)
         data = Data;
         return IsTrue;
     }
+    
+    public bool CheckIsFalse([NotNullWhen(false)] out T? data)
+    {
+        data = Data;
+        return IsTrue;
+    }
 
     public static CheckData<T> True(T data, string? message = null) => new(true, message, data);
     
