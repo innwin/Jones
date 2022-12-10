@@ -32,18 +32,18 @@ public static class DataReaderExtensions
 
             foreach (var property in properties)
             {
-                if (!hash.Contains(property.Name.ToLower())) continue;
+                if (!hash.Contains(property.Name)) continue;
                 
                 var valueType = property.PropertyType;
-                property.SetValue(entity, @this[property.Name.ToLower()].To(valueType), null);
+                property.SetValue(entity, @this[property.Name].To(valueType), null);
             }
 
             foreach (var field in fields)
             {
-                if (!hash.Contains(field.Name.ToLower())) continue;
+                if (!hash.Contains(field.Name)) continue;
                 
                 var valueType = field.FieldType;
-                field.SetValue(entity, @this[field.Name.ToLower()].To(valueType));
+                field.SetValue(entity, @this[field.Name].To(valueType));
             }
 
             list.Add(entity);

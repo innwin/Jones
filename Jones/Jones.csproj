@@ -6,7 +6,7 @@
         <Description>CSharp base library</Description>
         <Authors>innwin</Authors>
         <Nullable>enable</Nullable>
-        <PackageVersion>3.3.1</PackageVersion>
+        <PackageVersion>3.3.2</PackageVersion>
         <RepositoryUrl>https://github.com/innwin/Jones</RepositoryUrl>
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
