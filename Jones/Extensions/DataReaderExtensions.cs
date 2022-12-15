@@ -16,7 +16,7 @@ public static class DataReaderExtensions
     /// <typeparam name="T">Generic type parameter.</typeparam>
     /// <param name="this">The @this to act on.</param>
     /// <returns>@this as an IEnumerable&lt;T&gt;</returns>
-    public static IEnumerable<T> ToEntities<T>(this IDataReader @this) where T : new()
+    public static IEnumerable<T> To<T>(this IDataReader @this) where T : new()
     {
         var type = typeof (T);
         var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
