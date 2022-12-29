@@ -1,22 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Jones.Extensions
+namespace Jones.Extensions;
+
+public static class EnumerableExtensions
 {
-    public static class EnumerableExtensions
+    public static bool IsNullOrEmpty<T>(this IEnumerable<T>? source)
     {
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T>? source)
-        {
-            return source == null || !source.Any();
-        }
-        
-        public static bool IsNotNullOrEmpty<T>(this IEnumerable<T>? source) => !source.IsNullOrEmpty();
-        
-        public static string ToString<T>(this IEnumerable<T> source, string separator) => string.Join(separator, source);
-        // source?.AsParallel().Select(p => p?.ToString() ?? string.Empty).Aggregate((total, next) => $"{total}{separated}{next}");
-        
-        public static bool Equal<T>(this IEnumerable<T>? first, IEnumerable<T>? second) =>
-            first == null && second == null
-            || first != null && second != null && first.SequenceEqual(second);
+        return source == null || !source.Any();
     }
+        
+    public static bool IsNotNullOrEmpty<T>(this IEnumerable<T>? source) => !source.IsNullOrEmpty();
+        
+    public static string ToString<T>(this IEnumerable<T> source, string separator) => string.Join(separator, source);
+        
+    public static bool Equal<T>(this IEnumerable<T>? first, IEnumerable<T>? second) =>
+        first == null && second == null || first != null && second != null && first.SequenceEqual(second);
 }

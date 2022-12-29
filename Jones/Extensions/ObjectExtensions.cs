@@ -1,103 +1,102 @@
 using System;
 
-namespace Jones.Extensions
+namespace Jones.Extensions;
+
+public static class ObjectExtensions
 {
-    public static class ObjectExtensions
+    public static string? ToSafeString(this object? obj, string? defaultStr = null)
     {
-        public static string? ToSafeString(this object? obj, string? defaultStr = null)
+        try
         {
-            try
-            {
-                return obj?.ToString();
-            }
-            catch
-            {
-                return defaultStr;
-            }
+            return obj?.ToString();
         }
-
-        public static int? ToSafeInt(this object obj)
+        catch
         {
-            try
-            {
-                return Convert.ToInt32(obj);
-            }
-            catch
-            {
-                return new int?();
-            }
+            return defaultStr;
         }
+    }
 
-        public static int ToSafeInt(this object obj, int defaultStr)
+    public static int? ToSafeInt(this object obj)
+    {
+        try
         {
-            try
-            {
-                return Convert.ToInt32(obj);
-            }
-            catch
-            {
-                return defaultStr;
-            }
+            return Convert.ToInt32(obj);
         }
-
-        public static bool ToSafeBool(this object obj, bool defaultBool = false)
+        catch
         {
-            try
-            {
-                return Convert.ToBoolean(obj);
-            }
-            catch
-            {
-                return defaultBool;
-            }
+            return new int?();
         }
+    }
 
-        public static double? ToSafeDouble(this object obj)
+    public static int ToSafeInt(this object obj, int defaultStr)
+    {
+        try
         {
-            try
-            {
-                return Convert.ToDouble(obj);
-            }
-            catch
-            {
-                return new double?();
-            }
+            return Convert.ToInt32(obj);
         }
-
-        public static double ToSafeDouble(this object obj, double defaultDouble)
+        catch
         {
-            try
-            {
-                return Convert.ToDouble(obj);
-            }
-            catch
-            {
-                return defaultDouble;
-            }
+            return defaultStr;
         }
+    }
 
-        public static float? ToSafeFloat(this object obj)
+    public static bool ToSafeBool(this object obj, bool defaultBool = false)
+    {
+        try
         {
-            try
-            {
-                return Convert.ToSingle(obj);
-            }
-            catch
-            {
-                return new float?();
-            }
+            return Convert.ToBoolean(obj);
         }
-
-        public static float ToSafeFloat(this object obj, float defaultFloat)
+        catch
         {
-            try
-            {
-                return Convert.ToSingle(obj);
-            }
-            catch
-            {
-                return defaultFloat;
-            }
+            return defaultBool;
+        }
+    }
+
+    public static double? ToSafeDouble(this object obj)
+    {
+        try
+        {
+            return Convert.ToDouble(obj);
+        }
+        catch
+        {
+            return new double?();
+        }
+    }
+
+    public static double ToSafeDouble(this object obj, double defaultDouble)
+    {
+        try
+        {
+            return Convert.ToDouble(obj);
+        }
+        catch
+        {
+            return defaultDouble;
+        }
+    }
+
+    public static float? ToSafeFloat(this object obj)
+    {
+        try
+        {
+            return Convert.ToSingle(obj);
+        }
+        catch
+        {
+            return new float?();
+        }
+    }
+
+    public static float ToSafeFloat(this object obj, float defaultFloat)
+    {
+        try
+        {
+            return Convert.ToSingle(obj);
+        }
+        catch
+        {
+            return defaultFloat;
         }
     }
 }

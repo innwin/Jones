@@ -31,9 +31,9 @@ namespace Jones.Extensions
                     baseUrl = url;
                     return null;
                 }
-                baseUrl = url.Substring(0, questionMarkIndex);
+                baseUrl = url[..questionMarkIndex];
 
-                var ps = url.Substring(questionMarkIndex + 1);
+                var ps = url[(questionMarkIndex + 1)..];
 
                 // 开始分析参数对   
                 var re = new System.Text.RegularExpressions.Regex(@"(^|&)?(\w+)=([^&]+)(&|$)?", System.Text.RegularExpressions.RegexOptions.Compiled);
