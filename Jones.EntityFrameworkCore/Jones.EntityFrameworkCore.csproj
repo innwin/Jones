@@ -12,7 +12,7 @@
 
     <ItemGroup>
       <PackageReference Include="Jones" Version="3.3.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.2" />
     </ItemGroup>
 
 </Project>

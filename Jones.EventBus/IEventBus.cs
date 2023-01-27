@@ -1,10 +1,9 @@
 using System;
 
-namespace Jones.EventBus
+namespace Jones.EventBus;
+
+public interface IEventBus
 {
-    public interface IEventBus
-    {
-        void Publish<TEvent>(TEvent eventItem) where TEvent : IEvent;
-        IObservable<TEvent> Of<TEvent>() where TEvent : IEvent;
-    }
+    void Publish<TEvent>(TEvent eventItem) where TEvent : IEvent;
+    IObservable<TEvent> Of<TEvent>() where TEvent : IEvent;
 }

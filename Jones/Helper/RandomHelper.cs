@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-
 namespace Jones.Helper;
 
 public static class RandomHelper

@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Linq.Expressions;
 using Jones.Helper;
 using Jones.Utils;
@@ -320,7 +317,7 @@ public static class AttributeExtensions
         where TSource : class 
         where TAttribute : Attribute
     {
-        var name = THelper.GetMemberName(keySelector);
+        var name = TypeHelper.GetMemberName(keySelector);
         return source.GetType().GetAttributes<TAttribute>(name, isInherit);
     }
         
@@ -382,7 +379,7 @@ public static class AttributeExtensions
         where TSource : class 
         where TAttribute : Attribute
     {
-        string name = THelper.GetMemberName(keySelector);
+        string name = TypeHelper.GetMemberName(keySelector);
         return source.GetType().GetFieldAttributes<TAttribute>(name, isInherit);
     }
         

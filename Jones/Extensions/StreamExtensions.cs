@@ -1,5 +1,3 @@
-using System.IO;
-
 namespace Jones.Extensions;
 
 public static class StreamExtensions

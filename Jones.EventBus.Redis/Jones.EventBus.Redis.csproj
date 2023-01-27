@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Jones.EventBus" Version="2.0.0" />
+      <PackageReference Include="Jones.EventBus" Version="3.0.0" />
       <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
     </ItemGroup>
 

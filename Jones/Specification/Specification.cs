@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace Jones.Specification;
@@ -77,7 +77,7 @@ public abstract class Specification<TEntity> : ISpecification<TEntity> where TEn
     /// </summary>
     /// <param name="specification">Specification instance</param>
     /// <returns>See True operator in C#</returns>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "specification")]
+    [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "specification")]
     public static bool operator true(Specification<TEntity> specification)
     {
         return true;

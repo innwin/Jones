@@ -1,5 +1,3 @@
-using System;
-
 namespace Jones.Utils;
 
 // thank you to https://stackoverflow.com/a/3199453/1586229

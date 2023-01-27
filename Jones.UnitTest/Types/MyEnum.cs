@@ -1,10 +1,9 @@
-namespace Jones.UnitTest.Types
+namespace Jones.UnitTest.Types;
+
+public enum MyEnum
 {
-    public enum MyEnum
-    {
-        [System.ComponentModel.Description("哈哈")]
-        HaHa,
-        [System.ComponentModel.Description("嘻嘻")]
-        XiXi
-    }
+    [System.ComponentModel.Description("哈哈")]
+    HaHa,
+    [System.ComponentModel.Description("嘻嘻")]
+    XiXi
 }

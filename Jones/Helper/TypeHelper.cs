@@ -1,9 +1,8 @@
-using System;
 using System.Linq.Expressions;
 
 namespace Jones.Helper;
 
-public static class THelper
+public static class TypeHelper
 {
     public static string GetMemberName<T>(Expression<Func<T, dynamic?>> property)
     {

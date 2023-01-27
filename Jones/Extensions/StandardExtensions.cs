@@ -1,5 +1,3 @@
-using System;
-
 namespace Jones.Extensions;
 
 public static class StandardExtensions

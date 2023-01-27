@@ -1,7 +1,6 @@
-namespace Jones.EventBus.Redis
+namespace Jones.EventBus.Redis;
+
+public interface IRedisEventBus : IEventBus
 {
-    public interface IRedisEventBus : IEventBus
-    {
         
-    }
 }

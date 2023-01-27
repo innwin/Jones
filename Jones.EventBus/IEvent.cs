@@ -1,7 +1,6 @@
-namespace Jones.EventBus
+namespace Jones.EventBus;
+
+public interface IEvent
 {
-    public interface IEvent
-    {
         
-    }
 }
