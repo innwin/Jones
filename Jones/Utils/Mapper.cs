@@ -47,14 +47,14 @@ public class DataReaderMapper<T>
                 index,
                 info = x.Info
             }, StringComparer.InvariantCultureIgnoreCase).ToList();
-        if (columns.Length != joined.Count || fieldsAndProps.Count() != joined.Count)
-        {
-            throw new MapMismatchException($"""
-            Expected to map every column in the result.
-            Instead, {columns.Length} columns and {fieldsAndProps.Length} fields produced only {joined.Count} matches.
-            Hint: be sure all your columns have _names_, and the names match up.
-            """);
-        }
+//         if (columns.Length != joined.Count || fieldsAndProps.Count() != joined.Count)
+//         {
+//             throw new MapMismatchException($"""
+//             Expected to map every column in the result.
+//             Instead, {columns.Length} columns and {fieldsAndProps.Length} fields produced only {joined.Count} matches.
+//             Hint: be sure all your columns have _names_, and the names match up.
+//             """);
+//         }
         return joined.ToDictionary(x => x.index, x => x.info);
     }
 
