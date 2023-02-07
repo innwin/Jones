@@ -6,12 +6,12 @@
         <Authors>innwin</Authors>
         <Description>execute Raw SQL queries</Description>
         <RepositoryUrl>https://github.com/innwin/Jones</RepositoryUrl>
-        <PackageVersion>3.0.1</PackageVersion>
+        <PackageVersion>3.1.0</PackageVersion>
         <TargetFramework>net7.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Jones" Version="3.3.3" />
+      <PackageReference Include="Jones" Version="3.5.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.2" />
     </ItemGroup>
 
