@@ -12,7 +12,7 @@
 
     <ItemGroup>
       <PackageReference Include="Jones.EventBus" Version="3.0.0" />
-      <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
+      <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
     </ItemGroup>
 
 </Project>
