@@ -9,18 +9,18 @@ namespace Jones.EventBus.RabbitMQ;
 
 public class RabbitMQEventBus<TEvent> : IEventBus<TEvent>
 {
-    private readonly RabbitMQClient _rabbitMqClient;
+    protected readonly RabbitMQClient RabbitMqClient;
     private readonly JsonSerializerOptions? _jsonSerializerOptions;
 
     public RabbitMQEventBus(RabbitMQClient rabbitMqClient, IOptions<JsonSerializerOptions>? jsonSerializerOptions)
     {
-        _rabbitMqClient = rabbitMqClient;
+        RabbitMqClient = rabbitMqClient;
         _jsonSerializerOptions = jsonSerializerOptions?.Value;
     }
 
     public void Publish<T>(T eventItem) where T : TEvent
     {
-        _rabbitMqClient.Channel.BasicPublish(
+        RabbitMqClient.Channel.BasicPublish(
             exchange: "",
             routingKey: GetQueueName<T>(),
             basicProperties: null,
@@ -28,7 +28,7 @@ public class RabbitMQEventBus<TEvent> : IEventBus<TEvent>
             body: Encoding.UTF8.GetBytes(JsonSerializer.Serialize(eventItem, _jsonSerializerOptions)));
     }
 
-    public IObservable<T> Of<T>() where T : TEvent => _rabbitMqClient.Channel
+    public IObservable<T> Of<T>() where T : TEvent => RabbitMqClient.Channel
         .WhenEventingBasicConsumerReceived(GetQueueName<T>())
         .Select(body => JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(body.ToArray()), _jsonSerializerOptions))!;
 
