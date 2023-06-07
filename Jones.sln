@@ -14,6 +14,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.EventBus", "Jones.Eve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.EventBus.Redis", "Jones.EventBus.Redis\Jones.EventBus.Redis.csproj", "{522AE478-E0BB-447C-B86B-8DDDCE8318A1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{91C8AFA0-A3A4-4958-96F6-4986FA619A5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.EventBus", "EventBus\Jones.EventBus\Jones.EventBus.csproj", "{40176542-1E83-48A6-8611-D7E8BB6A0EF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.EventBus.RabbitMQ", "EventBus\Jones.EventBus.RabbitMQ\Jones.EventBus.RabbitMQ.csproj", "{A37ADC92-3867-4831-8CA6-8983382A3DC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMQ", "RabbitMQ", "{9CFBD1EC-3735-477E-9E4B-C1D0D2F9A749}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jones.RabbitMQ", "RabbitMQ\Jones.RabbitMQ\Jones.RabbitMQ.csproj", "{3ACC3586-E8B2-491A-B069-619F66DA3128}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +58,22 @@ Global
 		{522AE478-E0BB-447C-B86B-8DDDCE8318A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{522AE478-E0BB-447C-B86B-8DDDCE8318A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{522AE478-E0BB-447C-B86B-8DDDCE8318A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40176542-1E83-48A6-8611-D7E8BB6A0EF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40176542-1E83-48A6-8611-D7E8BB6A0EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40176542-1E83-48A6-8611-D7E8BB6A0EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40176542-1E83-48A6-8611-D7E8BB6A0EF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A37ADC92-3867-4831-8CA6-8983382A3DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A37ADC92-3867-4831-8CA6-8983382A3DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A37ADC92-3867-4831-8CA6-8983382A3DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A37ADC92-3867-4831-8CA6-8983382A3DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACC3586-E8B2-491A-B069-619F66DA3128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACC3586-E8B2-491A-B069-619F66DA3128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACC3586-E8B2-491A-B069-619F66DA3128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACC3586-E8B2-491A-B069-619F66DA3128}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{40176542-1E83-48A6-8611-D7E8BB6A0EF4} = {91C8AFA0-A3A4-4958-96F6-4986FA619A5B}
+		{A37ADC92-3867-4831-8CA6-8983382A3DC0} = {91C8AFA0-A3A4-4958-96F6-4986FA619A5B}
+		{3ACC3586-E8B2-491A-B069-619F66DA3128} = {9CFBD1EC-3735-477E-9E4B-C1D0D2F9A749}
 	EndGlobalSection
 EndGlobal
