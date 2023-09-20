@@ -7,7 +7,11 @@ namespace Jones.Extensions;
 public static class AssemblyExtensions
 {
     public static Version? GetAssemblyVersion(this Assembly? assembly) => assembly?.GetName().Version;
-
+    
     public static string? GetAssemblyFileVersion(this Assembly? assembly) =>
-        assembly == null ? null : FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion;
+        assembly?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
+    
+    public static string? GetAssemblyName(this Assembly? assembly) => assembly?.GetName().Name;
+    
+    public static string? GetAssemblyTitle(this Assembly? assembly) => assembly?.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
 }
