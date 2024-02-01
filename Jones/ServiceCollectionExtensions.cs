@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Jones.Helper;
 using Jones.Service;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -7,8 +8,18 @@ namespace Jones;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddJonesService(this IServiceCollection services)
+    public static IServiceCollection AddJonesService(this IServiceCollection services, string? environment, string? instanceId)
     {
+        if (!string.IsNullOrEmpty(environment))
+        {
+            HostingEnvironmentHelper.SetEnvironment(environment);
+        }
+        
+        if (!string.IsNullOrEmpty(instanceId))
+        {
+            ProjectHelper.SetInstanceId(instanceId);
+        }
+        
         services.AddSingleton<IJsonSerializer, JsonSerializerImpl>();
 
         return services;
