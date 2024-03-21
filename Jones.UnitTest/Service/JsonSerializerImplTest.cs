@@ -1,7 +1,6 @@
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Jones.JsonConverters;
 using Jones.Service;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,8 +21,8 @@ public class JsonSerializerImplTest
             options.PropertyNameCaseInsensitive = true;    //忽略大小写
             options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;    // 驼峰式
             options.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;    // 序列化中文时的编码问题
-            options.Converters.Add(new DateTimeConverter());
-            options.Converters.Add(new NullableDateTimeConverter());
+            // options.Converters.Add(new DateTimeConverter());
+            // options.Converters.Add(new NullableDateTimeConverter());
         });
         
         serviceCollection.AddJonesService(null, null);
@@ -38,7 +37,7 @@ public class JsonSerializerImplTest
     {
         var queryObject = new object[]
         {
-            new ViewModel(MyEnum.Blue, null, DateTime.Parse("2023-01-27 11:48:54"), new ViewModel2("haha")),
+            new ViewModel(MyEnum.Blue, null, DateTime.Parse("2023-01-27T11:48:54"), new ViewModel2("haha")),
             new
             {
                 ids = new[] { 1, 2, 3 }
@@ -46,7 +45,7 @@ public class JsonSerializerImplTest
         };
         var json = _jsonSerializer.Serialize(queryObject);
         Assert.AreEqual(json, """
-        [{"myEnum":2,"dateTime":"2023-01-27 11:48:54","viewModel2":{"name":"haha"}},{"ids":[1,2,3]}]
+        [{"myEnum":2,"dateTime":"2023-01-27T11:48:54","viewModel2":{"name":"haha"}},{"ids":[1,2,3]}]
         """);
         // Console.WriteLine(json);
     }

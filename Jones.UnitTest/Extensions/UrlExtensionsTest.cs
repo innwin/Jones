@@ -2,7 +2,6 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Jones.Extensions;
-using Jones.JsonConverters;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Jones.UnitTest.Extensions;
@@ -20,8 +19,8 @@ public class UrlExtensionsTest
             options.PropertyNameCaseInsensitive = true;    //忽略大小写
             options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;    // 驼峰式
             options.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;    // 序列化中文时的编码问题
-            options.Converters.Add(new DateTimeConverter());
-            options.Converters.Add(new NullableDateTimeConverter());
+            // options.Converters.Add(new DateTimeConverter());
+            // options.Converters.Add(new NullableDateTimeConverter());
         });
         
         var provider = serviceCollection.BuildServiceProvider();
@@ -33,14 +32,14 @@ public class UrlExtensionsTest
     {
         var queryObject = new object[]
         {
-            new ViewModel(MyEnum.Blue, null, DateTime.Parse("2023-01-27 11:48:54"), new ViewModel2("haha")),
+            new ViewModel(MyEnum.Blue, null, DateTime.Parse("2023-01-27T11:48:54"), new ViewModel2("haha")),
             new
             {
                 ids = new[] { 1, 2, 3 }
             }
         };
         var url = "Admin".CreateGetMethodUrl(queryObject);
-        Assert.AreEqual(url, "Admin?myEnum=2&dateTime=2023-01-27 11:48:54&name=haha&ids=1&ids=2&ids=3");
+        Assert.AreEqual(url, "Admin?myEnum=2&dateTime=2023-01-27T11:48:54&name=haha&ids=1&ids=2&ids=3");
         // Console.WriteLine(url);
     }
     
